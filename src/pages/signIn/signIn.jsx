@@ -1,7 +1,7 @@
 import "./signIn.css";
 
 const signIn = () => {
-  return <div>signIn</div>;
+  return <div>signIn YAY!</div>;
 };
 
 export default signIn;
