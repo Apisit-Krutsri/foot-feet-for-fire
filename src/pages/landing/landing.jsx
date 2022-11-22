@@ -1,6 +1,6 @@
 import React from "react";
-import "./landing.css";
-import { Typography, Button, Grid, Paper, Box } from "@mui/material";
+import style from "./landing.module.css";
+import { Typography, Grid, Paper, Box } from "@mui/material";
 import imagelanding from "../../img/landingpic.png";
 
 
@@ -33,49 +33,51 @@ function Landing() {
   {/* ////////////////////////////////////// - JSX -//////////////////////////////////////// */} 
   
   return (
-    <Box className="bigContainer">
+    <Box className={style.bigContainer}>
 
-    {/* Left side of Landing page */} 
-      <Box className="leftContent">
-        <h1 className="anim-typewriter">Your body can do it,</h1>
-        <h1 className="anim-typewriter">it's time to convince your mind!</h1>
-        <Box className="btn">
-          <Button
-            className="bg-black"
+    {/* /////////////////// Left side of Landing page ///////////////////*/} 
+      <Box className={style.leftContent}>
+      <Box className={style.textcontainer}>
+        <h1 className={style.text} >Your body can do it,</h1>
+        <h1 className={style.text}>it's time to convince your mind!</h1>
+        </Box>
+        <Box className={style.btn}>
+          <button
+            className={style.leftbutton}
             id="button"
             type="submit"
             variant="contained"
           >
             Log In
-          </Button>
-          <Button
-            className="bg-gray-200 text-green-400 border-green-400"
+          </button>
+          <button
+            className={style.rightbutton}
             id="button"
             type="submit"
             variant="outlined"
           >
             Sign Up
-          </Button>
+          </button>
         </Box>
       </Box>
 
       {/* Woman image in Landing page */} 
-      <img src={imagelanding} alt="landing-img" />
+      <img className={style.image} src={imagelanding} alt="landing-img" />
 
 
-      {/* Right side of Landing page */} 
-      <Box className="rightContent">
-        <Grid container spacing={2} className="textbox">
+      {/* /////////////////// Right side of Landing page //////////////// */} 
+      <Box className={style.rightContent}>
+        <Grid container spacing={2} className={style.textbox}>
 
         {/* First textbox AND JUST TRY RANDOM QUOTES */} 
-          <Paper className="paper" elevation={6}>
+          <Paper className={style.paper} elevation={6}>
                 <Typography fontSize={24}>
                   {quotes2[Math.floor(Math.random() * 2)]["text"]}
                 </Typography>
           </Paper>
 
           {/* Second textbox */} 
-          <Paper className="paper" elevation={6}>
+          <Paper className={style.paper} elevation={6}>
           <Typography fontSize={25}>“You've gotta dance like there's nobody watching,
           Love like you'll never be hurt,
           Sing like there's nobody listening,
@@ -84,7 +86,7 @@ function Landing() {
           </Paper>
 
           {/* Third textbox */} 
-          <Paper className="paper" elevation={6}>
+          <Paper className={style.paper} elevation={6}>
               <Grid item xl>
               <Typography fontSize={25}>Hello</Typography>
               </Grid>

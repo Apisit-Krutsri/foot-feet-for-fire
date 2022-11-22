@@ -1,7 +1,6 @@
 import React from "react";
-import "./signUp.css";
+import style from "./signUp.module.css"
 import { useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Typography, TextField, Button} from "@mui/material";
 
 
@@ -14,6 +13,7 @@ function SignUp() {
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
   const [errorConfirm, setErrorConfirm] = useState("");
+  const [errorColor, setErrorColor] = useState(false);
   
 
   const validateForm = (e) => {
@@ -22,35 +22,35 @@ function SignUp() {
       setErrorEmail("");
     } else {
       setErrorEmail("Incorrect email");
+      setErrorColor(true);
     }
 
     if (password.length >= 8) {
       setErrorPassword("");
     } else {
       setErrorPassword("Password must be at least 8 characters");
+      setErrorColor(true);
     }
 
     if (password.length >= 8 && password === confirm) {
       setErrorConfirm("");
     } else {
       setErrorConfirm("Confirm password is not matched");
+      setErrorColor(true);
     }
   };
 
-  const theme = createTheme({
-    spacing: 1,
-  });
 
   //////////////////////////// JSX-section ///////////////////////////////////
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box className="container">
-        <Typography id="text" variant="h5" align="center">
+    <div className="flex items-center justify-center min-h-screen bg-slate-100">
+    <Box className={style.container}>
+        <Typography className="text-lime-500 text-center font-semibold 2xl:text-left pb-5" variant="h5">
           SIGN UP
         </Typography>
-        <hr></hr>
-        <Box className="fill">
+        <hr className="border-1 border-lime-600"></hr>
+        <Box className="grid p-5">
           <TextField
             id="email"
             type="text"
@@ -59,6 +59,7 @@ function SignUp() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             helperText={errorEmail}
+            error={errorColor}
             margin="dense"
             required
           />
@@ -71,6 +72,7 @@ function SignUp() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             helperText={errorPassword}
+            error={errorColor}
             margin="dense"
             required
           />
@@ -82,10 +84,12 @@ function SignUp() {
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}
             helperText={errorConfirm}
+            error={errorColor}
             margin="dense"
             required
           />
           <Button
+          className="mt-5 mb-5 bg-lime-600"
             id="button"
             type="submit"
             variant="contained"
@@ -97,7 +101,7 @@ function SignUp() {
           </Button>
         </Box>
       </Box>
-    </ThemeProvider>
+    </div>
   );
 }
 
