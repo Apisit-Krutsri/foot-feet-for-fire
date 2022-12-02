@@ -2,22 +2,10 @@ import React from "react";
 import style from "./landing.module.css";
 import { Typography, Grid, Paper, Box } from "@mui/material";
 import imagelanding from "../../img/landingpic.png";
-
+import { BrowserRouter as Link } from "react-router-dom";
 
 function Landing() {
-
-//example of dataset
-  const quotes = {
-    quote: [
-      "this is quote number 1",
-      "this is quote number 2",
-      "this is quote number 3",
-      "this is quote number 4",
-      "this is quote number 5",
-      "this is quote number 6",
-    ],
-  };
-
+  //example of dataset
   const quotes2 = [
     {
       text: "Genius is one percent inspiration an ninety-nine percent perspiration.",
@@ -29,67 +17,65 @@ function Landing() {
     },
   ];
 
+  /////////////////////////////////// - JSX -////////////////////////////////////
 
-  {/* ////////////////////////////////////// - JSX -//////////////////////////////////////// */} 
-  
   return (
     <Box className={style.bigContainer}>
-
-    {/* /////////////////// Left side of Landing page ///////////////////*/} 
+      {/* /////////////////// Left side of Landing page ///////////////////*/}
       <Box className={style.leftContent}>
-      <Box className={style.textcontainer}>
-        <h1 className={style.text} >Your body can do it,</h1>
-        <h1 className={style.text}>it's time to convince your mind!</h1>
+        <Box className={style.textcontainer}>
+          <h1 className={style.text}>Your body can do it,</h1>
+          <h1 className={style.text}>it's time to convince your mind!</h1>
         </Box>
+
+        {/*Buttons */}
         <Box className={style.btn}>
           <button
             className={style.leftbutton}
-            id="button"
-            type="submit"
-            variant="contained"
+            id='button'
+            type='submit'
+            variant='contained'
           >
-            Log In
+            <Link to='/signin'>Sign In</Link>
           </button>
           <button
             className={style.rightbutton}
-            id="button"
-            type="submit"
-            variant="outlined"
+            id='button'
+            type='submit'
+            variant='outlined'
           >
-            Sign Up
+            <Link to='/signup'>Sign Up</Link>
           </button>
         </Box>
       </Box>
 
-      {/* Woman image in Landing page */} 
-      <img className={style.image} src={imagelanding} alt="landing-img" />
+      {/* Woman image in Landing page */}
+      <img className={style.image} src={imagelanding} alt='landing-img' />
 
-
-      {/* /////////////////// Right side of Landing page //////////////// */} 
+      {/* /////////////////// Right side of Landing page //////////////// */}
       <Box className={style.rightContent}>
         <Grid container spacing={2} className={style.textbox}>
-
-        {/* First textbox AND JUST TRY RANDOM QUOTES */} 
+          {/* First textbox AND JUST TRY RANDOM QUOTES */}
           <Paper className={style.paper} elevation={6}>
-                <Typography fontSize={24}>
-                  {quotes2[Math.floor(Math.random() * 2)]["text"]}
-                </Typography>
+            <Typography fontSize={24}>
+              {quotes2[Math.floor(Math.random() * 2)]["text"]}
+            </Typography>
           </Paper>
 
-          {/* Second textbox */} 
+          {/* Second textbox */}
           <Paper className={style.paper} elevation={6}>
-          <Typography fontSize={25}>“You've gotta dance like there's nobody watching,
-          Love like you'll never be hurt,
-          Sing like there's nobody listening,
-          And live like it's heaven on earth.”
-          ― William W. Purkey</Typography>
+            <Typography fontSize={25}>
+              “You've gotta dance like there's nobody watching, Love like you'll
+              never be hurt, Sing like there's nobody listening, And live like
+              it's heaven on earth.” ― William W. Purkey
+            </Typography>
           </Paper>
 
-          {/* Third textbox */} 
+          {/* Third textbox */}
           <Paper className={style.paper} elevation={6}>
-              <Grid item xl>
+            <Grid item xl>
               <Typography fontSize={25}>Hello</Typography>
-              </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Box>
