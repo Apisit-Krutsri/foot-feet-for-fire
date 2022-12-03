@@ -1,0 +1,9 @@
+.activ{
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 15px;
+}
+.activ div{
+    margin: 3px;
+}

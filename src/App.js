@@ -1,4 +1,6 @@
 import "./App.css";
+// <<<<<<< HEAD
+// =======
 import Landing from "./pages/landing/landing";
 import SignIn from "./pages/signIn/signIn";
 import SignUp from "./pages/signUp/signUp";
@@ -11,11 +13,20 @@ import CardComponent from "./pages/DashboardCenter/cardComponent/cardComponent";
 import { BrowserRouter, Router, Routes, Route, Link } from "react-router-dom";
 import Center from "./pages/DashboardCenter/center";
 import Dashboard from "./pages/Dashboard/Dashboard";
+// >>>>>>> conflict1
+import AccountEdit from './pages/accountEdit/accountEdit'
+import React from "react";
+import ProfileEdit from "./pages/profileEdit/profileEdit";
+import ActivitySummary from "./pages/activitySummary/activitySummary";
 
 function App() {
+ 
   return (
     <div className='App'>
     <Dashboard />
+    <AccountEdit />
+    <ProfileEdit />
+  <ActivitySummary/>
       {/*<BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing />} />
@@ -24,6 +35,8 @@ function App() {
          
         </Routes>
       </BrowserRouter>*/}
+
+      
     </div>
   );
 }
