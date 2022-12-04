@@ -2,7 +2,7 @@ import React from "react";
 import style from "./landing.module.css";
 import { Typography, Grid, Paper, Box } from "@mui/material";
 import imagelanding from "../../img/landingpic.png";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Landing() {
   //example of dataset
@@ -36,7 +36,7 @@ function Landing() {
             type='submit'
             variant='contained'
           >
-            <Link to='/signin'>Sign In</Link>
+           <Link to='/signin'>Sign In</Link>
           </button>
           <button
             className={style.rightbutton}

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import CreateAlert from "./CreateAlert";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function ActivityCreate() {
   /*set states*/
@@ -190,7 +191,7 @@ function ActivityCreate() {
               type='submit'
               onClick={cancel}
             >
-              Cancel
+               <Link to='/dashboard'>Cancel</Link>
             </Button>
           </Box>
         </Box>

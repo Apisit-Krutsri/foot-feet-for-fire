@@ -2,6 +2,7 @@ import React from "react";
 import style from "./signUp.module.css"
 import { useState } from "react";
 import { Box, Typography, TextField, Button} from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 //function section
@@ -97,8 +98,12 @@ function SignUp() {
             onClick={validateForm}
             sx={{mt:20}}
           >
-            Sign Up
+            <Link to='/edit'>Sign Up</Link>
           </Button>
+          <div className="flex justify-center">
+          <div className="text-sm">Already have an account ?</div>
+          <button className="mx-3 text-sm text-green-800"><Link to='/signin'>Sign In</Link></button>
+          </div>
         </Box>
       </Box>
     </div>

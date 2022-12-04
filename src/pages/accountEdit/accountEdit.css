@@ -1,13 +1,13 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     
-}
-body{
+} */
+/* body{
     background-color: aliceblue;
     width: 100%;
-}
+} */
 .form-account{
     width: 30%;
     /* height: 40vh; */

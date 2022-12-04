@@ -23,14 +23,14 @@ const ActivitySummary = () => {
     })
 
     return(
-        <div className="activ">
-            <div style={{ width: 300}}>
+        <div className="flex justify-center content-center border-black border-2 p-4">
+            <div className="m-3 w-72">
             <BarChart chartData={userData} />
             </div>
-            <div style={{ width: 300}}>
+            <div className="m-3 w-72">
             <LineChart chartData={userData} />
             </div>
-            <div style={{ width: 200}}>
+            <div className="m-3 w-72">
             <PieChart chartData={userData} />
             </div>
         </div>

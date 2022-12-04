@@ -10,8 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
-
-const settings = ["Activity Setting", "Account Setting", "Logout"];
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -25,7 +24,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static className=' h-14 mb-1 bg-slate-50 shadow-md">
+    <AppBar position='static' className='h-14 mb-1 bg-slate-50 shadow-md'>
       <Container maxWidth='xl' className=''>
         <Toolbar disableGutters className='flex justify-between'>
           <Typography
@@ -118,11 +117,21 @@ function NavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key='activity' onClick={handleCloseUserMenu}>
+                <Typography textAlign='center'>
+                  <Link to='/edit'>Activity Setting</Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem key='account' onClick={handleCloseUserMenu}>
+                <Typography textAlign='center'>
+                  <Link to='/account'>Account setting</Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem key='logout' onClick={handleCloseUserMenu}>
+                <Typography textAlign='center'>
+                  <Link to='/'>Logout</Link>
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

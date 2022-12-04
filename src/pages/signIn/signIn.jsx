@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import { Link } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -76,10 +77,14 @@ function SignIn() {
             variant="contained"
             onClick={validateForm}
           >
-            Sign In
+            <Link to='/dashboard'>Sign In</Link>
           </Button>
 
           <Button variant="outlined">Forgot Password</Button>
+          <div className="flex justify-center mt-2">
+          <div className="text-sm">Not have an account ?</div>
+          <button className="mx-3 text-sm text-green-800"><Link to='/signup'>Sign Up</Link></button>
+          </div>
         </div>
       </Card>
     </div>
