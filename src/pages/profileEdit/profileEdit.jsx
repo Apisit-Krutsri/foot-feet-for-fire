@@ -1,245 +1,358 @@
-import "./profileEdit.css";
-import React, { useState } from "react";
-import UploadAvatar from "./uploadAvatar/uploadAvatar";
+import React from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  Radio,
+} from "@mui/material";
+import "./profileEdit.module.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import RadioGroup from "@mui/material/RadioGroup";
 
 const ProfileEdit = () => {
-  const [date, setDate] = useState();
-  console.log("date", date);
+  const [selectGoal, setSelectGoal] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [gender, setGender] = useState("");
+  const [birth, setBirth] = useState("");
+  const [quote, setQuote] = useState("");
+  const [goal, setGoal] = useState("");
+  const [num, setNum] = useState("");
+
+  const inputFname = (e) => {
+    setFname(e.target.value);
+  };
+
+  const inputLname = (e) => {
+    setLname(e.target.value);
+  };
+
+  const inputWeight = (e) => {
+    setWeight(e.target.value);
+  };
+
+  const inputHeight = (e) => {
+    setHeight(e.target.value);
+  };
+
+  const inputGender = (e) => {
+    setGender(e.target.value);
+  };
+
+  const inputBirth = (e) => {
+    setBirth(e.target.value);
+  };
+
+  ///Changes of kcal or time
+  const inputNum = (e) => {
+    setNum(e.target.value);
+  };
+
+  const inputSelectGoal = (e) => {
+    setSelectGoal(e.target.value);
+  };
+
+  const inputQuote = (e) => {
+    setQuote(e.target.value);
+  };
+
+  const clickRadioGoal = (e) => {
+    setGoal(e.target.value);
+  };
+
+  // when click "submit", the the data will be saved
+  const saveProfile = (event) => {
+    event.preventDefault();
+    const profileData = {
+      fname: fname,
+      lname: lname,
+      weight: weight,
+      height: height,
+      gender: gender,
+      birth: birth,
+      quote: quote,
+      goal: goal,
+      selectGoal: selectGoal,
+      num: num,
+    };
+    console.log(profileData);
+  };
 
   return (
-    <div className='content-pro'>
-      <div>
-        <UploadAvatar />
-      </div>
-      <div className='box-profile'>
-        <div className='box-one'>
-          <div>
-            <label
-              for='first_name'
-              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
-            >
-              First name
-            </label>
-            <input
-              type='text'
-              id='first_name'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-72 p-2.5 '
-              placeholder='Frist name'
-              required
-            />
-          </div>
-          <div>
-            <label
-              for='last_name'
-              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
-            >
-              Last name
-            </label>
-            <input
-              type='text'
-              id='last_name'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-72 p-2.5  '
-              placeholder='Last name'
-              required
-            />
-          </div>
+    <div className='mt-2'>
+      <div className='w-1/2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
+        <Typography
+          variant='h4'
+          className='text-green-600 text-3xl text-center font-semibold '
+        >
+          Edit Profile
+        </Typography>
+
+        {/*Choose Image*/}
+        <div className='flex justify-center my-5'>
+          <input
+            className='mx-3 p-1 rounded-md block'
+            type='file'
+            name='myImage'
+            accept='image/x-png,image/gif,image/jpeg'
+          ></input>
         </div>
 
-        <div className='box-two'>
-          <div>
+        {/*First Name*/}
+        <Box className='flex flex-wrap mt-2  justify-around mx-5'>
+          <div className='mt-2 '>
             <label
-              for='w-weight'
-              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
+              htmlFor='first_name'
+              className=' block mb-1 text-sm font-medium text-gray-900 dark:text-white'
             >
-              Weight (Kg)
+              Firstname
             </label>
-            <input
-              type='text'
-              id='w-weight'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-72 p-2.5 '
-              placeholder='0'
-              required
+            <TextField
+              id='outlined-required'
+              size='small'
+              className='w-80 bg-slate-50'
+              value={fname}
+              onChange={inputFname}
             />
           </div>
-          <div>
-            <label
-              for='h-height'
-              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
-            >
-              Height (Cm)
-            </label>
-            <input
-              type='text'
-              id='h-height'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-72 p-2.5  '
-              placeholder='0'
-              required
-            />
-          </div>
-        </div>
 
-        <div className='box-three'>
-          <div>
+          {/*Last Name*/}
+          <div className='mt-2 '>
             <label
+              htmlFor='last_name'
               className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
-              for='grid-state'
+            >
+              Lastname
+            </label>
+            <TextField
+              value={lname}
+              className='w-80 bg-slate-50'
+              id='outlined-required'
+              size='small'
+              onChange={inputLname}
+            />
+          </div>
+        </Box>
+
+        {/*Weight*/}
+        <Box className='flex flex-wrap mt-2 justify-around  mx-5'>
+          <div className='mt-2 '>
+            <label
+              htmlFor='weight-kg'
+              className=' block mb-1 text-sm font-medium text-gray-900 dark:text-white'
+            >
+              Weight (kg)
+            </label>
+            <TextField
+              id='outlined-required'
+              size='small'
+              className='w-80 bg-slate-50'
+              type='number'
+              value={weight}
+              onChange={inputWeight}
+            />
+          </div>
+
+          {/*Height*/}
+          <div className='mt-2 '>
+            <label
+              htmlFor='height-cm'
+              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white bg-slate-50'
+            >
+              Height (cm)
+            </label>
+            <TextField
+              className='w-80 bg-slate-50'
+              id='outlined-required'
+              type='number'
+              size='small'
+              value={height}
+              onChange={inputHeight}
+            />
+          </div>
+        </Box>
+
+        {/*Gender*/}
+        <Box className='flex flex-wrap mt-2 justify-around  mx-5'>
+          <div className='mt-2 '>
+            <label
+              htmlFor='gender'
+              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
             >
               Gender
             </label>
-            <div className='relative'>
-              <select
-                className='block  w-72 bg-gray-50 border border-gray-200 text-gray-700 p-2.5 rounded-lg leading-tight '
-                id='grid-state'
-              >
-                <option>Male</option>
-                <option>Female</option>
-              </select>
 
-              {/* <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center  text-gray-700'>
-                <svg
-                  className='fill-current h-4 w-4'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 20 20'
-                >
-                  <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
-                </svg>
-              </div> */}
-            </div>
+            <Select
+              size='small'
+              value={gender}
+              onChange={inputGender}
+              className='w-80 bg-slate-50'
+            >
+              <MenuItem value={"male"}>Male </MenuItem>
+              <MenuItem value={"female"}>Female</MenuItem>
+            </Select>
           </div>
 
-          <div className='calen'>
+          {/*Date of Birth*/}
+          <div className='mt-2 '>
             <label
-              className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 mt-1'
-              for='grid-state'
+              htmlFor='height-cm'
+              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
             >
               Date of Birth
             </label>
-            <input
+            <TextField
+              className='w-80 bg-slate-50'
+              size='small'
+              id='date'
               type='date'
-              onChange={(e) => setDate(e.target.value)}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-72 p-2.5  '
-            ></input>
-            {/* <input
-            type='date'
-            id='birthday'
-            name='birthday'
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-64 h-10 p-2.5  block '
-          ></input> */}
+              value={birth}
+              onChange={inputBirth}
+              defaultValue='00-00-00'
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
           </div>
-        </div>
+        </Box>
 
-        <div className='box-four'>
-          <div>
+        {/*Motivation Quote*/}
+        <Box className='flex flex-wrap mt-2 justify-around mx-5 '>
+          <div className='mt-2  w-full'>
             <label
-              for='quote'
-              className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
+              htmlFor='Motivation'
+              className=' block mb-1 text-sm font-medium text-gray-900 dark:text-white'
             >
               Motivation quote for yourself
             </label>
-            <input
-              type='text'
-              id='quote'
-              className='quote bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-72 p-2.5 '
-              placeholder='Motivation quote for yourself'
-              required
+            <TextField
+              className='bg-slate-50'
+              id='outlined-required'
+              size='small'
+              rows={4}
+              multiline
+              fullWidth
+              value={quote}
+              onChange={inputQuote}
             />
           </div>
-        </div>
+        </Box>
 
-        <div className='box-five'>
-          <div className='setGoal'>
+        {/*GOAL*/}
+        <Box className='flex flex-wrap mt-3 justify-around mx-5'>
+          <div className='w-full'>
             <label
-              for='quote'
+              htmlFor='time'
               className='block mb-1 text-sm font-medium text-gray-900 dark:text-white'
             >
               Set Goal
             </label>
-            <div>
-              <div>
-                <div className='form-check box-cal'>
-                  <input
-                    className='form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
-                    type='radio'
-                    name='flexRadioDefault'
-                    id='flexRadioDefault1'
+            {/*CALORIES*/}
+            <RadioGroup>
+              <div className='items-center flex flex-wrap w-full'>
+                <div className='items-center flex mt-2'>
+                  <Radio
+                    value='calories'
+                    name='radio-buttons'
+                    inputProps={{ "aria-label": "controlled" }}
+                    label='Calories'
+                    onClick={clickRadioGoal}
                   />
                   <label
-                    className='form-check-label inline-block text-gray-800 mr-2 mt-1'
-                    for='flexRadioDefault1'
+                    htmlFor='calories'
+                    className=' block mb-1 text-sm font-medium text-gray-900 dark:text-white'
                   >
                     Calories
                   </label>
-                  <div className='relative'>
-                    <select
-                      className='block mr-2 w-24 mt-1 bg-gray-50 border border-gray-200 text-gray-700 p-2 rounded-lg leading-tight '
-                      id='grid-state'
-                    >
-                      <option>Day</option>
-                      <option>Week</option>
-                    </select>
-                  </div>
-
-                  <input
-                    type='text'
-                    id='kcal'
-                    className='bg-gray-50 border mt-1 border-gray-300 text-gray-900 text-sm rounded-lg  w-80 p-2.5 '
-                    placeholder='kcal'
-                    required
-                  />
                 </div>
+                <Select
+                  size='small'
+                  value={selectGoal}
+                  onChange={inputSelectGoal}
+                  className='w-28 mr-2 ml-2 bg-slate-50'
+                  disabled={goal === "time"}
+                >
+                  <MenuItem value='day'>Day </MenuItem>
+                  <MenuItem value='week'>Week</MenuItem>
+                </Select>
+                <TextField
+                  className='w-72 ml-4 bg-slate-50'
+                  id='outlined-required'
+                  size='small'
+                  placeholder='kcal'
+                  type='number'
+                  disabled={goal === "time"}
+                  value={num}
+                  onChange={inputNum}
+                />
+              </div>
 
-                <div className='form-check box-time'>
-                  <input
-                    className='form-check-input appearance-none rounded-full h-4 mt-1 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
-                    type='radio'
-                    name='flexRadioDefault'
-                    id='flexRadioDefault2'
+              {/*CALORIES*/}
+              <div className='items-center flex flex-wrap w-full'>
+                <div className='items-center flex mt-2'>
+                  <Radio
+                    value='time'
+                    name='radio-buttons'
+                    inputProps={{ "aria-label": "controlled" }}
+                    label='time'
+                    onClick={clickRadioGoal}
                   />
                   <label
-                    className='form-check-label  mt-1 mr-2 inline-block text-gray-800'
-                    for='flexRadioDefault2'
+                    htmlFor='time'
+                    className=' block mb-1 text-sm font-medium text-gray-900 dark:text-white'
                   >
                     Time
                   </label>
-                  <div className='relative'>
-                    <select
-                      className='block mr-2 w-24 mt-1 bg-gray-50 border border-gray-200 text-gray-700 p-2 rounded-lg leading-tight '
-                      id='grid-state'
-                    >
-                      <option>Day</option>
-                      <option>Week</option>
-                    </select>
-                  </div>
-
-                  <input
-                    type='text'
-                    id='minutes'
-                    className='bg-gray-50 border mt-1 border-gray-300 text-gray-900 text-sm rounded-lg  w-80 p-2.5 '
-                    placeholder='minutes'
-                    required
-                  />
                 </div>
+                <Select
+                  size='small'
+                  value={selectGoal}
+                  onChange={inputSelectGoal}
+                  className='w-28 mr-2 ml-2 bg-slate-50'
+                  disabled={goal === "calories"}
+                >
+                  <MenuItem value='day'>Day </MenuItem>
+                  <MenuItem value='week'>Week</MenuItem>
+                </Select>
+                <TextField
+                  className='w-72 ml-4 bg-slate-50'
+                  id='outlined-required'
+                  size='small'
+                  placeholder='minutes'
+                  type='number'
+                  disabled={goal === "calories"}
+                  value={num}
+                  onChange={inputNum}
+                />
               </div>
-            </div>
+            </RadioGroup>
           </div>
-        </div>
+        </Box>
 
-        <div className='mt-5 box-button'>
-          <button
-            className='w-60 mt-3 shadow bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded'
-            type='submit'
-          >
-            <Link to='/dashboard'>Submit</Link>
-          </button>
+        {/*BUTTON*/}
+        <Box className='flex  mx-5'>
+          <div className=' w-full flex flex-wrap mt-2 justify-around'>
+            <button
+              className='w-60 mt-3 shadow bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded'
+              type='button'
+              onClick={saveProfile}
+            >
+              <Link to='/dashboard'>Submit</Link>
+            </button>
 
-          <button
-            className='w-60  mt-3 shadow bg-red-600 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded '
-            type='button'
-          >
-            <Link to='/dashboard'>Cancel</Link>
-          </button>
-        </div>
+            <button
+              className='w-60 mt-3 shadow bg-red-600 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded '
+              type='button'
+            >
+              <Link to='/dashboard'>Cancel</Link>
+            </button>
+          </div>
+        </Box>
       </div>
     </div>
   );
