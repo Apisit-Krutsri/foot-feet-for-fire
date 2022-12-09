@@ -21,7 +21,8 @@ const AllCard = () => {
   useEffect(() => {
     axios
       .get(
-        "https://foot-feet-default-rtdb.asia-southeast1.firebasedatabase.app/cardactivity.json"
+        // "https://foot-feet-default-rtdb.asia-southeast1.firebasedatabase.app/cardactivity.json"
+        `${process.env.REACT_APP_API}/cards`
       )
       .then((res) => {
         const datas = res.data;
@@ -32,7 +33,6 @@ const AllCard = () => {
             id: key,
             ...datas[key],
           };
-
           cards.push(card);
         }
 
@@ -42,7 +42,7 @@ const AllCard = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [dataCard]);
+  }, []);
 
   if (load) {
     return (

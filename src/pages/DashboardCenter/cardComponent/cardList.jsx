@@ -8,9 +8,9 @@ const CardList = (props) => {
         {props.cardActivity.map((data) => (
           <CardComponent
             key={data.id}
-            id={data.id}
+            uuid={data.uuid}
             date={data.date}
-            name={data.name}
+            title={data.title}
             sport={data.sport}
             description={data.description}
           />

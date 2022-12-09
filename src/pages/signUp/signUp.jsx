@@ -59,6 +59,7 @@ function SignUp() {
     // }
 
   };
+  console.log(password);
 
 // when click "submit", the the data will be saved
 const saveProfile = (event) => {
@@ -130,13 +131,13 @@ const saveProfile = (event) => {
             onClick={validateForm}
             sx={{ mt: 20 }}
             // disabled = {disable}
-          >
-            <Link to='/edit'>Sign Up</Link>
+          > Sign Up
+            {/* <Link to='/edit'>Sign Up</Link> */}
           </Button>
           <div className='flex justify-center'>
             <div className='text-sm'>Already have an account ?</div>
             <button className='mx-3 text-sm text-green-800'>
-              <Link to='/signin'>Sign In</Link>
+       <Link to='/signin'>Sign In</Link>
             </button>
           </div>
         </Box>

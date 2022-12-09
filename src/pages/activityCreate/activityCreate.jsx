@@ -34,7 +34,7 @@ function ActivityCreate() {
   /*set conditions when click save button*/
   const submitData = (e) => {
     e.preventDefault();
-    if (!name && !date && !firstTime && !toTime && !sport && !description) {
+    if (!(name && date && firstTime && toTime && sport && description)) {
       console.log("no nameeeee");
       setAlert({
         show: true,
@@ -43,7 +43,7 @@ function ActivityCreate() {
       });
     } else {
       const newItem = {
-        id: uuidv4(),
+        uuid: uuidv4(),
         title: name,
         date: date,
         firstTime: firstTime,
@@ -51,13 +51,12 @@ function ActivityCreate() {
         sport: sport,
         description: description,
       };
-      axios
-        .post(
-          "https://foot-feet-default-rtdb.asia-southeast1.firebasedatabase.app/cardactivity.json",
-          newItem
-        )
-        .then((res) => {
+      // console.log("API URL", process.env.REACT_APP_API)
+      axios.post(`${process.env.REACT_APP_API}/create`, newItem
+        ).then((res) => {
           console.log(res.data);
+        }).catch(err=> {
+          console.log(err)
         });
 
       setList([...list, newItem]);
@@ -72,7 +71,7 @@ function ActivityCreate() {
         msg: "Your activity was saved",
         severity: "success",
       });
-      console.log(newItem);
+      // console.log(newItem);
     }
   };
 
