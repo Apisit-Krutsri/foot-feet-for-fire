@@ -11,6 +11,9 @@ import "./profileEdit.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
+import axios from "axios";
+import CreateAlert from "../activityCreate/CreateAlert";
+import { v4 as uuidv4 } from "uuid";
 
 const ProfileEdit = () => {
   const [selectGoal, setSelectGoal] = useState("");
@@ -23,6 +26,12 @@ const ProfileEdit = () => {
   const [quote, setQuote] = useState("");
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
+
+  const [alert, setAlert] = useState({
+    show: false,
+    msg: "",
+    severity: "",
+  });
 
   const inputFname = (e) => {
     setFname(e.target.value);
@@ -68,20 +77,37 @@ const ProfileEdit = () => {
   // when click "submit", the the data will be saved
   const saveProfile = (event) => {
     event.preventDefault();
+    if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num)) {
+      console.log("no nameeeee");
+      setAlert({
+        show: true,
+        msg: "You must complete all fields ",
+        severity: "error",
+      });
+    }else {
+
     const profileData = {
-      fname: fname,
-      lname: lname,
+      uuidprofile: uuidv4(),
+      firstName: fname, 
+      lastName: lname,
       weight: weight,
       height: height,
       gender: gender,
-      birth: birth,
+      birthday: birth,
       quote: quote,
       goal: goal,
       selectGoal: selectGoal,
-      num: num,
+      number: num,
     };
     console.log(profileData);
-  };
+
+    axios.post(`${process.env.REACT_APP_API}/profile`, profileData
+    ).then((res) => {
+      console.log(res.data);
+    }).catch(err=> {
+      console.log(err)
+    });
+  }};
 
   return (
     <div className='mt-2'>
@@ -334,6 +360,13 @@ const ProfileEdit = () => {
           </div>
         </Box>
 
+         {/*Alert will place here, types of Alert will based on conditions*/}
+         <div className="flex content-center justify-center">
+         {alert.show && (
+            <CreateAlert {...alert} setAlert={setAlert}/>
+          )}
+        </div>
+
         {/*BUTTON*/}
         <Box className='flex  mx-5'>
           <div className=' w-full flex flex-wrap mt-2 justify-around'>
@@ -342,7 +375,8 @@ const ProfileEdit = () => {
               type='button'
               onClick={saveProfile}
             >
-              <Link to='/dashboard'>Submit</Link>
+            submit
+              {/* <Link to='/dashboard'>Submit</Link> */}
             </button>
 
             <button

@@ -8,30 +8,28 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import IconButton from "@mui/material/IconButton";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import img from '../../../img/landingpic.png'
-// import ActivityCreate from "../../activityCreate/activityCreate";
-// import {useState} from 'react';
+
 import Swal from 'sweetalert2';
 import axios from "axios";
 
 function CardComponent(props) {
-  // const [image,setImage] = useState('')
-  console.log(props)
 
   // ยืนยันเวลากดลบบทความ
   const confirmDelete=({uuid})=> {
     Swal.fire({
-      title: "คุณต้องการลบบทความหรือไม่",
+      title: "Are you sure ?",
+      text: "you will not able to recover this activity",
       icon: "warning",
       showCancelButton: true
     }).then((result)=>{   //result คือกดปุ่มยืนยันการลบหรือ cancel, ถ้ากด cancel จะไม่มีไรเกิดขึ้น แต่ถ้ากด confirm จะมี Swal ขึ้นมาว่า deleted
         if(result.isConfirmed){
-          deleteBlog(uuid)
+          deleteActivity(uuid)
         }
     })
   }
 
   //ลบบทความ
-  const deleteBlog=()=>{
+  const deleteActivity=()=>{
           //  ส่ง request ไปที่ api เพื่อลบข้อมูล พอลบแล้วก็ค่อยขึ้นข้อความว่าลบบทความเรียบร้อย
           axios.delete(`${process.env.REACT_APP_API}/card/${props.uuid}`)
           .then(response=>{
@@ -44,6 +42,20 @@ function CardComponent(props) {
           }).catch(err=>console.log(err))
   }
 
+  var timediff = require('timediff');
+  // const duration = timediff(new Date("2022-12-19" + " 16:31:00"), new Date("2022-12-19" + " 14:34:00"), 'Hm');
+  const duration = timediff(new Date(`${props.date} ${props.firstTime}`), new Date(`${props.date} ${props.toTime}`), 'Hm');
+  // const duration = timediff(new Date(props.firstTime *1), new Date(props.toTime *1), 'Hm');
+  // const date = new Date(`${props.date}, ${props.firstTime}`)
+  // console.log(`this is date: ${date}`)
+  // console.log(typeof date)
+
+
+  console.log(duration)
+  console.log(props.date)
+  console.log(props.firstTime)
+
+  // console.log(props.toTime.getTime() - props.firstTime.getTime() )
 
   return (
     <Card sx={{ maxWidth: 200 }} className="rounded-md m-2">
@@ -58,7 +70,8 @@ function CardComponent(props) {
           <Typography gutterBottom variant='h5' component='div' className="text-lg font-bold">
             {props.name}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>{props.date} : TIME (MIN)</Typography>
+          <Typography variant='body2' color='text.secondary'>DATE :{props.date}</Typography>
+          <Typography variant='body2' color='text.secondary'>DURATION (MIN): {props.firstTime}</Typography>
           <Typography variant='body2' color='text.secondary'>Activity: {props.sport}</Typography>
           <Typography variant='body2' color='text.secondary'>Description: {props.description}</Typography>
         </CardContent>

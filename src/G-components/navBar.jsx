@@ -119,7 +119,7 @@ function NavBar() {
             >
               <MenuItem key='activity' onClick={handleCloseUserMenu}>
                 <Typography textAlign='center'>
-                  <Link to='/edit'>Activity Setting</Link>
+                  <Link to='/edit'>Profile Setting</Link>
                 </Typography>
               </MenuItem>
               <MenuItem key='account' onClick={handleCloseUserMenu}>

@@ -1,12 +1,17 @@
 import { Container, Typography } from "@mui/material";
-import { Box, style } from "@mui/system";
+import { Box } from "@mui/system";
 import image from "../../img/Landing_Pic.svg";
 import "./leftComponent.module.css";
 import bgimg from "../../img/Dashboard_LeftNav_ProfileBG.svg";
 import BoxInLeft from "./boxInLeft";
-// import {useState} from 'react';
 
-function LeftComponent() {
+let { AgeFromDateString } = require("age-calculator");
+
+function LeftComponent(props) {
+  // รับ props มาจาก dashboard
+
+  let age = new AgeFromDateString(props.birthday).age;
+  // console.log("value from ageFromString", age);
 
   const myStyle = {
     backgroundImage: `url(${bgimg})`,
@@ -21,28 +26,28 @@ function LeftComponent() {
   }
 
   /// BMR calculation function ===== BASED ON SEX!!
-  function maleBMR(weight,height,age) {
-    const num = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+  function maleBMR(weight, height, age) {
+    const num = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
     return (Math.round(num * 100) / 100).toFixed(2);
   }
 
-  function femaleBMR (weight,height,age) {
-    const num = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-    return Math.floor(Math.round(num * 100) / 100)
+  function femaleBMR(weight, height, age) {
+    const num = 447.593 + 9.247 * weight + 3.098 * height - 4.33 * age;
+    return Math.floor(Math.round(num * 100) / 100);
   }
 
-  function calculateBMR (sex,weight,height,age) {
-    if (sex === "woman") {
-      return femaleBMR(weight,height,age);
+  function calculateBMR(gender, weight, height, age) {
+    if (gender === "female") {
+      return femaleBMR(weight, height, age);
     } else {
-      return maleBMR(weight,height,age);
+      return maleBMR(weight, height, age);
     }
   }
 
   //////////////////////////////////////////////// MAKE DATA //////////////////////////////
-  const bmr = calculateBMR("woman",44,158,26);
-  const bmi = calculateBMI(44,158); 
-
+  // const bmr = calculateBMR("female", 44, 158, 26);
+  const bmr = calculateBMR(props.gender, props.weight, props.height, age);
+  const bmi = calculateBMI(props.weight, props.height);
 
   return (
     <div className='flex justify-start'>
@@ -58,7 +63,7 @@ function LeftComponent() {
           className='border-white bg-white border-2 rounded-full h-32 w-32 flex items-center justify-center'
         />
         <Typography className='m-2 p-2 text-white font-bold'>
-          Sharon Kim
+          {props.firstname} {props.lastname}{" "}
         </Typography>
         <Typography className='m-2 text-sm text-white'>
           PERSONAL INFORMATION
@@ -67,13 +72,13 @@ function LeftComponent() {
         {/*Box component in file boxInLeft*/}
         <Box className='flex p-0 m-2 w-64 bg-slate-100/80 border-white border-2 rounded-md items-center justify-center'>
           {/* Height box */}
-          <BoxInLeft text={"Height"} number={"00000"}/>
+          <BoxInLeft text={"Height"} number={props.height} />
 
           {/* Weight box */}
-          <BoxInLeft text={"Weight"} number={"00000"}/>
+          <BoxInLeft text={"Weight"} number={props.weight} />
 
           {/* Age box */}
-          <BoxInLeft text={"Age"} number={"00000"}/>
+          <BoxInLeft text={"Age"} number={age} />
         </Box>
 
         {/*Another 2 component boxes */}

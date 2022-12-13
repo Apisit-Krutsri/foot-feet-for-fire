@@ -5,7 +5,7 @@ import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { Container, Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
-const RightComponent = () => {
+const RightComponent = (props) => {
   // const [day, setDay] = useState(dayjs("today"));
 
   return (
@@ -32,8 +32,8 @@ const RightComponent = () => {
             <Typography className='m-2 text-center font-bold'>
               Goal 🎯
             </Typography>
-            <Box className='p-0 m-0 bg-slate-50 border-green-600 border-2 rounded-md h-24 text-center'>
-              This is goal
+            <Box className='pt-6 m-0 bg-slate-50 border-green-600 border-2 rounded-md h-24 text-center'>
+              {props.number} {props.goal} / {props.selectGoal}
             </Box>
           </Box>
 
@@ -41,8 +41,8 @@ const RightComponent = () => {
             <Typography className='m-2 text-center font-bold'>
               Motivation Quotes 💌
             </Typography>
-            <Box className='p-0 m-0 bg-slate-50 border-green-600 border-2 rounded-md h-24 text-center'>
-              This is quotes
+            <Box className='pt-6 m-0 bg-slate-50 border-green-600 border-2 rounded-md h-24 text-center'>
+              {props.quote}
             </Box>
           </Box>
         </Box>

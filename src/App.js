@@ -6,6 +6,7 @@ import SignUp from "./pages/signUp/signUp";
 // import CardComponent from "./pages/cardComponent/cardComponent.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AccountEdit from './pages/accountEdit/accountEdit';
+import ActivityEdit from './pages/activityEdit/activityEdit.jsx'
 import React from "react";
 import ProfileEdit from "./pages/profileEdit/profileEdit";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -29,6 +30,7 @@ function App() {
           <Route path='/edit' element={<ProfileEdit />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/account' element={<AccountEdit />} />
+          <Route path='/editactivity' element={<ActivityEdit />} />
         </Routes>
       
     
