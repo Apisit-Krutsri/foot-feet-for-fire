@@ -68,8 +68,6 @@ const Dashboard = () => {
         </div>
         <RightComponent number={inform.number} goal={inform.goal} quote={inform.quote} selectGoal={inform.selectGoal} />
       </div>
-      <ActivityEdit card = {cardData}/>
-      <div>this is information :{inform.uuidprofile}</div>
     </div>
 
 

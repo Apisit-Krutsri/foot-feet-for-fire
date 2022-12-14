@@ -8,9 +8,11 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import IconButton from "@mui/material/IconButton";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import img from '../../../img/landingpic.png'
-
 import Swal from 'sweetalert2';
 import axios from "axios";
+import {useState} from 'react'
+import ActivityCreate2 from "../../activityCreate/ActivityEdit";
+import { Link, Route } from "react-router-dom";
 
 function CardComponent(props) {
 
@@ -42,18 +44,32 @@ function CardComponent(props) {
           }).catch(err=>console.log(err))
   }
 
-  var timediff = require('timediff');
+  //Edit บทความ ลองงงงงงงงงงงงงงงงงงงงงงเฉยๆๆๆๆๆๆๆๆๆๆๆๆๆ (แต่กดปุ่ม edit แล้ว uuid มานะะ)
+  const [aCard, setACard] = useState("")
+  
+  const handleEdit =  () => {
+      //  ส่ง request ไปที่ api เพื่อลบข้อมูล พอลบแล้วก็ค่อยขึ้นข้อความว่าลบบทความเรียบร้อย
+      axios.get(`${process.env.REACT_APP_API}/card/${props.uuid}`)
+          .then(response=>{
+            setACard(response.data)
+            console.log(aCard[0])
+            return <ActivityCreate2 card={aCard[0]}/>
+          // fetchData(); //รีเฟรชใหม่หลังลบ
+          }).catch(err=>console.log(err))      
+  }
+
+  // var timediff = require('timediff');
   // const duration = timediff(new Date("2022-12-19" + " 16:31:00"), new Date("2022-12-19" + " 14:34:00"), 'Hm');
-  const duration = timediff(new Date(`${props.date} ${props.firstTime}`), new Date(`${props.date} ${props.toTime}`), 'Hm');
+  // const duration = timediff(new Date(`${props.date} ${props.firstTime}`), new Date(`${props.date} ${props.toTime}`), 'Hm');
   // const duration = timediff(new Date(props.firstTime *1), new Date(props.toTime *1), 'Hm');
   // const date = new Date(`${props.date}, ${props.firstTime}`)
   // console.log(`this is date: ${date}`)
   // console.log(typeof date)
 
 
-  console.log(duration)
-  console.log(props.date)
-  console.log(props.firstTime)
+  // console.log(duration)
+  // console.log(props.date)
+  // console.log(props.firstTime)
 
   // console.log(props.toTime.getTime() - props.firstTime.getTime() )
 
@@ -70,8 +86,9 @@ function CardComponent(props) {
           <Typography gutterBottom variant='h5' component='div' className="text-lg font-bold">
             {props.name}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>DATE :{props.date}</Typography>
-          <Typography variant='body2' color='text.secondary'>DURATION (MIN): {props.firstTime}</Typography>
+          <Typography variant='body2' color='text.secondary' className="font-bold text-lime-900"> {props.title}</Typography>
+          <Typography variant='body2' color='text.secondary'>Date:{props.date}</Typography>
+          <Typography variant='body2' color='text.secondary'>Duration: {props.firstTime} min</Typography>
           <Typography variant='body2' color='text.secondary'>Activity: {props.sport}</Typography>
           <Typography variant='body2' color='text.secondary'>Description: {props.description}</Typography>
         </CardContent>
@@ -80,8 +97,8 @@ function CardComponent(props) {
         {/*<Button size="small" color="primary">
             Edit
     </Button>*/}
-        <IconButton>
-          <EditOutlinedIcon />
+        <IconButton onClick={()=>handleEdit(props.uuid)}><Link to={`/card/${props.uuid}`}>
+          <EditOutlinedIcon /></Link>
         </IconButton>
         <IconButton onClick={()=>confirmDelete(props.uuid)}>
           {" "}
