@@ -8,10 +8,10 @@ import {
     Button,
     Box,
   } from "@mui/material";
-  import "./create.css";
+  import "../activityCreate/create.css";
   import { useEffect, useState } from "react";
   import { v4 as uuidv4 } from "uuid";
-  import CreateAlert from "./CreateAlert";
+  import CreateAlert from "../activityCreate/CreateAlert";
   import axios from "axios";
   import { Link } from "react-router-dom";
   import { useParams } from 'react-router-dom';
@@ -19,7 +19,7 @@ import {
 //   import Swal from "sweetalert2";
 // import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
   
-  function ActivityCreate2(props) {
+  function ActivityEdit(props) {
     /*set states*/
     const [name, setName] = useState("");
     const [date, setDate] = useState("");
@@ -34,7 +34,7 @@ import {
       severity: "",
     });
 
-    console.log(props)
+    // console.log(props)
 
   
     // ดึงข้อมูลบทความที่ต้องการแก้ไขมาแปะใน state ใน form ลอกมาาาาาาาาาาาาาาาาา
@@ -51,7 +51,6 @@ import {
           setFirstTime(cardData.firstTime)
           setToTime(cardData.toTime)
           setSport(cardData.sport)
-
         });
     }, [uuid]);
 
@@ -60,7 +59,7 @@ import {
     const submitData = (e) => {
       e.preventDefault();
       if (!(name && date && firstTime && toTime && sport && description)) {
-        console.log("no nameeeee");
+        // console.log("no nameeeee");
         setAlert({
           show: true,
           msg: "You must complete all fields ",
@@ -79,7 +78,7 @@ import {
         // console.log("API URL", process.env.REACT_APP_API)
         axios.put(`${process.env.REACT_APP_API}/card/${uuid}`, newItem
           ).then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           }).catch(err=> {
             console.log(err)
           });
@@ -112,8 +111,8 @@ import {
     };
   
     return (
-      <div>
-        <div className="flex content-center justify-center pt-20 bg-slate-100">
+      <div className="bg-slate-100 h-screen">
+        <div className="flex content-center justify-center pt-20">
           <Box className='flex flex-col w-96 m-2 bg-lime-200 rounded-3xl'>
             <Typography className='text-center p-5 font-bold text-xl'>
               Edit Activity
@@ -228,5 +227,5 @@ import {
     );
   }
   
-  export default ActivityCreate2;
+  export default ActivityEdit;
   

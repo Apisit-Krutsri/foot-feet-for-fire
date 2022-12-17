@@ -1,10 +1,10 @@
 import React from "react";
 import style from "./signUp.module.css";
 import { useState } from "react";
-import { Box, Typography, TextField, Button,} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Typography, TextField, Button } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-//function section
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,62 +15,72 @@ function SignUp() {
   const [errorConfirm, setErrorConfirm] = useState("");
   const [errorColor, setErrorColor] = useState(false);
 
-  // const [emailValid,setEmailValid] = useState(true)
-  // const [passwordValid,setPasswordValid] = useState(true)
-  // const [confirmValid,setConfirmValid] = useState(true)
+  // const [emailValid, setEmailValid] = useState(true);
+  // const [passwordValid, setPasswordValid] = useState(true);
+  // const [confirmValid, setConfirmValid] = useState(true);
 
-  // const [btn, setBtn] = useState('/signup')
+  const navigate = useNavigate();
 
-  const validateForm = (e) => {
-    e.preventDefault();
-
+// validate signup form
+  const validateForm = async () => {
+    let emailValid = true;
+    let passwordValid = true;
+    let confirmValid = true;
+  
     if (email.includes("@")) {
       setErrorEmail("");
-    
-    } else {
+    } else { 
       setErrorEmail("Incorrect email");
       setErrorColor(true);
-      // setEmailValid(false)
+      emailValid = false;
     }
-
+  
     if (password.length >= 8) {
       setErrorPassword("");
-      
     } else {
       setErrorPassword("Password must be at least 8 characters");
       setErrorColor(true);
-      // setPasswordValid(false)
+      passwordValid = false;
     }
-
+  
     if (password.length >= 8 && password === confirm) {
       setErrorConfirm("");
-  
     } else {
       setErrorConfirm("Confirm password is not matched");
       setErrorColor(true);
-      // setConfirmValid(false)
+      confirmValid = false;
     }
-
-    // if (true) {
-    //   saveProfile ();
-    // } else {
-    //   console.log('nooooooooooooo')
-    //   e.preventDefault();
-    // }
-
+  
+    return { emailValid, passwordValid, confirmValid };
   };
-  console.log(password);
-
-// when click "submit", the the data will be saved
-const saveProfile = (event) => {
-  // event.preventDefault();
+  
+  //data from the user
   const signUpData = {
     email: email,
-    password: password
+    password: password,
   };
-  console.log(signUpData);
-};
+  
+  const [error, setError] = useState("");
+  
 
+  // if pass the validation conditions, the email and password will be posted to the database
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formValidity = await validateForm();
+    if (formValidity.emailValid && formValidity.passwordValid && formValidity.confirmValid) {
+      try {
+        const res = await axios.post(`${process.env.REACT_APP_API}/user`, signUpData);
+        console.log(res.message);
+        navigate("/signin");
+      } catch (error) {
+        if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+          setError(error.response.data.message);
+        }
+      }
+    } else {
+      console.log("noooooooooooooo");
+    }
+  };
 
   //////////////////////////// JSX-section ///////////////////////////////////
 
@@ -122,22 +132,30 @@ const saveProfile = (event) => {
             margin='dense'
             required
           />
+          {error && (
+            <div className='text-center bg-red-400 rounded-sm p-2 mt-3 font-bold text-neutral-600'>
+              {error}
+            </div>
+          )}
           <Button
             className='mt-5 mb-5 bg-lime-600'
             id='button'
             type='submit'
             variant='contained'
             color='success'
-            onClick={validateForm}
+            // onClick={validateForm}
             sx={{ mt: 20 }}
+            onClick={handleSubmit}
             // disabled = {disable}
-          > Sign Up
+          >
+            {" "}
+            Sign Up
             {/* <Link to='/edit'>Sign Up</Link> */}
           </Button>
           <div className='flex justify-center'>
             <div className='text-sm'>Already have an account ?</div>
             <button className='mx-3 text-sm text-green-800'>
-       <Link to='/signin'>Sign In</Link>
+              <Link to='/signin'>Sign In</Link>
             </button>
           </div>
         </Box>

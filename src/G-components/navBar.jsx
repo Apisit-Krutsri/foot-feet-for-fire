@@ -23,6 +23,12 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+  // ถ้ากด logout จะ remove token
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  }
+
   return (
     <AppBar position='static' className='h-14 mb-1 bg-slate-50 shadow-md'>
       <Container maxWidth='xl' className=''>
@@ -128,8 +134,8 @@ function NavBar() {
                 </Typography>
               </MenuItem>
               <MenuItem key='logout' onClick={handleCloseUserMenu}>
-                <Typography textAlign='center'>
-                  <Link to='/'>Logout</Link>
+                <Typography textAlign='center' onClick = {handleLogout}>
+                  Logout
                 </Typography>
               </MenuItem>
             </Menu>

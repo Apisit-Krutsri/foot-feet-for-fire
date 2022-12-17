@@ -11,8 +11,8 @@ import img from '../../../img/landingpic.png'
 import Swal from 'sweetalert2';
 import axios from "axios";
 import {useState} from 'react'
-import ActivityCreate2 from "../../activityCreate/ActivityEdit";
-import { Link, Route } from "react-router-dom";
+// import ActivityCreate2 from "../../activityCreate/ActivityEdit";
+import { Link } from "react-router-dom";
 
 function CardComponent(props) {
 
@@ -53,7 +53,7 @@ function CardComponent(props) {
           .then(response=>{
             setACard(response.data)
             console.log(aCard[0])
-            return <ActivityCreate2 card={aCard[0]}/>
+            // return <ActivityCreate2 card={aCard[0]}/>
           // fetchData(); //รีเฟรชใหม่หลังลบ
           }).catch(err=>console.log(err))      
   }

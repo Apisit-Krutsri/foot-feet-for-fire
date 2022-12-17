@@ -9,11 +9,15 @@ import AccountEdit from './pages/accountEdit/accountEdit';
 // import ActivityEdit from './pages/activityEdit/activityEdit.jsx'
 import React from "react";
 import ProfileEdit from "./pages/profileEdit/profileEdit";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ActivityEdit from "./pages/activityCreate/ActivityEdit";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import ActivityEdit from "./pages/activityEdit/ActivityEdit";
+// import {useState} from 'react'
 
 function App() {
- 
+
+  //ถ้า login แล้วจะมี token
+  const user = localStorage.getItem("token");
+
   return (
     <>
     
@@ -23,17 +27,16 @@ function App() {
     <Landing />
     <SignIn/>
     <SignUp/> */}
-      
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/edit' element={<ProfileEdit />} />
+          {/* {user && <Route path='/dashboard' element={<Dashboard />} />} */}
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/account' element={<AccountEdit />} />
           <Route path='/card/:uuid' element={<ActivityEdit />} />
         </Routes>
-      
     </>
   );
 }

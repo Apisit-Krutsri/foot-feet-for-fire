@@ -4,7 +4,7 @@ import Center from "../DashboardCenter/center";
 import NavBar from "../../G-components/navBar";
 import RightComponent from "../rightcomponent/rightcomponent";
 import ActivitySummary from "../activitySummary/activitySummary";
-import ActivityEdit from "../activityEdit/activityEdit";
+// import ActivityEdit from "../activityEdit/activityEdit";
 import axios from "axios";
 import {useEffect, useState} from 'react';
 // import { areDayPropsEqual } from "@mui/x-date-pickers/PickersDay/PickersDay";
@@ -48,7 +48,7 @@ const Dashboard = () => {
       .catch((error) => {
         console.log(error);
       })}
-      console.log(cardData)
+      // console.log(cardData)
 
   /////////////////////////////หรือลองไป fetch ตรง dashboard แล้ว props ต่อดี??
 
