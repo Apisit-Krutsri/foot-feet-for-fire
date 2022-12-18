@@ -10,7 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -23,10 +23,12 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+  const navigate = useNavigate();
   // ถ้ากด logout จะ remove token
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
+  const handleLogout = async () => {
+    await localStorage.removeItem("token");
+    await window.location.reload();
+    await navigate("/");
   }
 
   return (
@@ -125,7 +127,7 @@ function NavBar() {
             >
               <MenuItem key='activity' onClick={handleCloseUserMenu}>
                 <Typography textAlign='center'>
-                  <Link to='/edit'>Profile Setting</Link>
+                  <Link to='/profileEdit'>Profile Setting</Link>
                 </Typography>
               </MenuItem>
               <MenuItem key='account' onClick={handleCloseUserMenu}>

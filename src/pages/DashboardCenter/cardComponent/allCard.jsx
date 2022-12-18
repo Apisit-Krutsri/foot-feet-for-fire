@@ -4,8 +4,13 @@ import CardList from "./cardList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ActivityCreate from "../../activityCreate/activityCreate";
+import jwt_decode from "jwt-decode";
 
 const AllCard = () => {
+
+  const token = localStorage.getItem("token")
+  const decoded = jwt_decode(token);
+
   const [load, setLoad] = useState(true);
   const [dataCard, setDataCard] = useState([]);
 
@@ -22,7 +27,7 @@ const AllCard = () => {
     axios
       .get(
         // "https://foot-feet-default-rtdb.asia-southeast1.firebasedatabase.app/cardactivity.json"
-        `${process.env.REACT_APP_API}/cards`
+        `${process.env.REACT_APP_API}/cards/${decoded._id}`
       )
       .then((res) => {
         const datas = res.data;

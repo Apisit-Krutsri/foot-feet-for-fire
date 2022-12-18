@@ -2,16 +2,13 @@ import "./App.css";
 import Landing from "./pages/landing/landing";
 import SignIn from "./pages/signIn/signIn";
 import SignUp from "./pages/signUp/signUp";
-// import Card from "./pages/DashboardCenter/cardComponent/cardComponent.jsx;
-// import CardComponent from "./pages/cardComponent/cardComponent.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AccountEdit from './pages/accountEdit/accountEdit';
-// import ActivityEdit from './pages/activityEdit/activityEdit.jsx'
 import React from "react";
 import ProfileEdit from "./pages/profileEdit/profileEdit";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Profile from "./pages/profileEdit/profile";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import ActivityEdit from "./pages/activityEdit/ActivityEdit";
-// import {useState} from 'react'
 
 function App() {
 
@@ -20,18 +17,13 @@ function App() {
 
   return (
     <>
-    
-    {/* <Dashboard />
-    <AccountEdit />
-    <ProfileEdit />
-    <Landing />
-    <SignIn/>
-    <SignUp/> */}
         <Routes>
+        {!user && <Route path='/dashboard' element={<Landing />} />}
           <Route path='/' element={<Landing />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/edit' element={<ProfileEdit />} />
+          <Route path='/profileEdit' element={<ProfileEdit />} />
+          <Route path='/profile' element={<Profile />} />
           {/* {user && <Route path='/dashboard' element={<Dashboard />} />} */}
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/account' element={<AccountEdit />} />

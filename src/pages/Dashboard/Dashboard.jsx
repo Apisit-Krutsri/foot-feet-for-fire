@@ -4,57 +4,63 @@ import Center from "../DashboardCenter/center";
 import NavBar from "../../G-components/navBar";
 import RightComponent from "../rightcomponent/rightcomponent";
 import ActivitySummary from "../activitySummary/activitySummary";
-// import ActivityEdit from "../activityEdit/activityEdit";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from 'react';
-// import { areDayPropsEqual } from "@mui/x-date-pickers/PickersDay/PickersDay";
+import jwt_decode from "jwt-decode";
 
 
 const Dashboard = () => {
   const [inform, setInform] = useState('')
   const [cardData, setCardData] = useState ('')
 
+  const token = localStorage.getItem("token")
+  const decoded = jwt_decode(token);
+  const navigate = useNavigate();
+
   // get profile information มา (เอาไว้ส่ง props ต่อ)
   const fetchData = () => {
+    try {
     axios
-      .get(`${process.env.REACT_APP_API}/information/:uuidprofile`)
+      .get(`${process.env.REACT_APP_API}/information/${decoded._id}`)
       .then((response) => {
-        setInform(response.data[11])
-        // console.log(response.data[11])
-      })
-      .catch((err) => alert(err));
-  };
-// get card information มา (เอาไว้ส่ง props ต่อ)
-  const fetchCard = () => {
-    axios
-      .get(
-        // "https://foot-feet-default-rtdb.asia-southeast1.firebasedatabase.app/cardactivity.json"
-        `${process.env.REACT_APP_API}/cards`
-      )
-      .then((response) => {
-        
-        const datas = response.data;
-        const cards = [];
-
-        for (const key in datas) {
-          const card = {
-            id: key,
-            ...datas[key],
-          };
-          cards.push(card);
-          setCardData(cards)
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+        setInform(response.data[0])
       })}
+      catch(error) {
+        alert(error)
+        navigate("/profile");
+      }
+  }
+// get card information มา (เอาไว้ส่ง props ต่อ)
+  // const fetchCard = () => {
+  //   axios
+  //     .get(
+  //       // "https://foot-feet-default-rtdb.asia-southeast1.firebasedatabase.app/cardactivity.json"
+  //       `${process.env.REACT_APP_API}/cards`
+  //     )
+  //     .then((response) => {
+        
+  //       const datas = response.data;
+  //       const cards = [];
+
+  //       for (const key in datas) {
+  //         const card = {
+  //           id: key,
+  //           ...datas[key],
+  //         };
+  //         cards.push(card);
+  //         setCardData(cards)
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })}
       // console.log(cardData)
 
   /////////////////////////////หรือลองไป fetch ตรง dashboard แล้ว props ต่อดี??
 
   useEffect(() => {
     fetchData();
-    fetchCard();
   }, []);
 
   return (

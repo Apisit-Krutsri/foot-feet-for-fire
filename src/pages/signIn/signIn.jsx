@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./signIn.module.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,6 +16,7 @@ function SignIn() {
   const [errorColor, setErrorColor] = useState(false);
 
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
 // vallidate signin form
   const validateForm = async () => {
@@ -59,9 +60,9 @@ function SignIn() {
           `${process.env.REACT_APP_API}/login`,signInData
         );
         localStorage.setItem("token", res.data);
-        window.location = "/dashboard";
         console.log(res.message);
-        // navigate("/signin");
+        console.log(res.data)
+        navigate("/profile");
       } catch (error) {
         if (
           error.response &&

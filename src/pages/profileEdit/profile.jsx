@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import "./profileEdit.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
 import axios from "axios";
 import CreateAlert from "../activityCreate/CreateAlert";
@@ -19,8 +19,6 @@ import { useJwt } from "react-jwt";
 import jwt_decode from "jwt-decode";
 
 const ProfileEdit = () => {
-
-  const [inform, setInform] = useState('')
 
   const token = localStorage.getItem("token")
   const decoded = jwt_decode(token);
@@ -84,7 +82,7 @@ const ProfileEdit = () => {
     setGoal(e.target.value);
   };
 
-  // when click "submit", the the data will be updated
+  // when click "submit", the the data will be saved
   const saveProfile = (event) => {
     event.preventDefault();
     if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num)) {
@@ -94,7 +92,8 @@ const ProfileEdit = () => {
         msg: "You must complete all fields ",
         severity: "error",
       });
-    }else{
+    }else {
+
     const profileData = {
       uuidprofile: uuidv4(),
       firstName: fname, 
@@ -109,34 +108,16 @@ const ProfileEdit = () => {
       number: num,
       creator: decoded._id,
     };
-    axios.put(`${process.env.REACT_APP_API}/information/${decoded._id}`, profileData
+    console.log(profileData);
+
+    axios.post(`${process.env.REACT_APP_API}/profile`, profileData
     ).then((res) => {
       console.log(res.data);
-      navigate("/dashboard")
+      navigate("/dashboard");
     }).catch(err=> {
       console.log(err)
     });
-    console.log(profileData);
   }};
-
-    useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API}/information/${decoded._id}`)
-        .then(response => {
-          console.log(response.data[0])
-          const inform = response.data[0]
-          let dateFormat = inform.birthday.slice(0,10)
-          setFname(inform.firstName)
-          setLname(inform.lastName)
-          setWeight(inform.weight)
-          setHeight(inform.height)
-          setGender(inform.gender)
-          setBirth(dateFormat)
-          setQuote(inform.quote)
-          setSelectGoal(inform.selectGoal)
-          setGoal(inform.goal)
-          setNum(inform.number)
-        });
-    }, []);
 
   return (
     <div className='mt-2'>
@@ -171,7 +152,6 @@ const ProfileEdit = () => {
               id='outlined-required'
               size='small'
               className='w-80 bg-slate-50'
-              // defaultValue={inform.firstName}
               value={fname}
               onChange={inputFname}
             />
@@ -187,7 +167,6 @@ const ProfileEdit = () => {
             </label>
             <TextField
               value={lname}
-              // defaultValue={inform.lastName}
               className='w-80 bg-slate-50'
               id='outlined-required'
               size='small'
@@ -402,20 +381,19 @@ const ProfileEdit = () => {
         <Box className='flex  mx-5'>
           <div className=' w-full flex flex-wrap mt-2 justify-around'>
             <button
-              className='w-60 mt-3 shadow bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded'
+              className='w-60 mt-3 shadow bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-10 rounded'
               type='button'
               onClick={saveProfile}
             >
             submit
-              {/* <Link to='/dashboard'>Submit</Link> */}
             </button>
 
-            <button
+            {/* <button
               className='w-60 mt-3 shadow bg-red-600 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded '
               type='button'
             >
               <Link to='/dashboard'>Cancel</Link>
-            </button>
+            </button> */}
           </div>
         </Box>
       </div>

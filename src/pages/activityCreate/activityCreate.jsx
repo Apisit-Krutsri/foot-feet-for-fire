@@ -15,7 +15,16 @@ import CreateAlert from "./CreateAlert";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import { useJwt } from "react-jwt";
+import jwt_decode from "jwt-decode";
+
 function ActivityCreate() {
+
+  const token = localStorage.getItem("token")
+  // console.log(token);
+  const decoded = jwt_decode(token);
+  // console.log(decoded._id)
+
   /*set states*/
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -50,6 +59,7 @@ function ActivityCreate() {
         toTime: toTime,
         sport: sport,
         description: description,
+        creator: decoded._id,
       };
       // console.log("API URL", process.env.REACT_APP_API)
       axios.post(`${process.env.REACT_APP_API}/create`, newItem
@@ -152,9 +162,12 @@ function ActivityCreate() {
             value={sport}
             onChange={(e) => setSport(e.target.value)}
           >
+            <MenuItem value={"walking"}>Walking</MenuItem>
             <MenuItem value={"running"}>Running</MenuItem>
             <MenuItem value={"swimming"}>Swimming</MenuItem>
+            <MenuItem value={"cycling"}>Cycling</MenuItem>
             <MenuItem value={"hiking"}>Hiking</MenuItem>
+
           </Select>
 
           {/*Add Activity Description*/}

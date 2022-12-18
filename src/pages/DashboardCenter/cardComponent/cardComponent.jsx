@@ -48,7 +48,7 @@ function CardComponent(props) {
   const [aCard, setACard] = useState("")
   
   const handleEdit =  () => {
-      //  ส่ง request ไปที่ api เพื่อลบข้อมูล พอลบแล้วก็ค่อยขึ้นข้อความว่าลบบทความเรียบร้อย
+      //  ดึงข้อมูล props แล้วเอาไปเปลี่ยน path อีกที (ตรง <Link>) เพื่อที่หน้า edit จะได้ใช้ useParams ได้
       axios.get(`${process.env.REACT_APP_API}/card/${props.uuid}`)
           .then(response=>{
             setACard(response.data)
