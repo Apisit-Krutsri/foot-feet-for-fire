@@ -8,22 +8,18 @@ import {
   Button,
   Box,
 } from "@mui/material";
-import "./create.css";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import CreateAlert from "./CreateAlert";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-import { useJwt } from "react-jwt";
+import Resize from "react-image-file-resizer";
 import jwt_decode from "jwt-decode";
 
 function ActivityCreate() {
 
   const token = localStorage.getItem("token")
-  // console.log(token);
   const decoded = jwt_decode(token);
-  // console.log(decoded._id)
 
   /*set states*/
   const [name, setName] = useState("");
@@ -32,7 +28,7 @@ function ActivityCreate() {
   const [toTime, setToTime] = useState("");
   const [sport, setSport] = useState("");
   const [description, setDescription] = useState("");
-
+  const [image, setImage] = useState("")
   const [list, setList] = useState([]); //list = array contains object(s) of information
   const [alert, setAlert] = useState({
     show: false,
@@ -59,6 +55,7 @@ function ActivityCreate() {
         toTime: toTime,
         sport: sport,
         description: description,
+        image: image,
         creator: decoded._id,
       };
       // console.log("API URL", process.env.REACT_APP_API)
@@ -76,6 +73,7 @@ function ActivityCreate() {
       setToTime("");
       setSport("");
       setDescription("");
+      setImage("")
       setAlert({
         show: true,
         msg: "Your activity was saved",
@@ -93,8 +91,41 @@ function ActivityCreate() {
     setToTime("");
     setSport("");
     setDescription("");
-    // setOpen('hidden')
+    setImage("")
   };
+
+  // post image
+  const handleChangeFile = (e) => {
+    const files = e.target.files
+    if (files) {
+      // console.log(files)
+      Resize.imageFileResizer(
+        files[0],
+        150,
+        150,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          axios.post(`${process.env.REACT_APP_API}/images`,{
+            image: uri
+          },
+          {
+            headers: {
+              authtoken: token
+            },
+          } 
+          ).then (res => {
+            const img = res.data.secure_url
+            setImage(img)
+          }).catch(err=> {
+            console.log(err)
+          })
+        },
+        "base64"
+      )
+    }
+  }
 
   return (
     <div>
@@ -110,7 +141,9 @@ function ActivityCreate() {
             type='file'
             name='myImage'
             accept='image/x-png,image/gif,image/jpeg'
+            onChange={handleChangeFile}
           ></input>
+          <img src={image}></img>
 
           {/*Add Activity Name*/}
           <InputLabel className='px-3 py-1 text-sm'>Activity Name</InputLabel>

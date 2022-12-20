@@ -72,7 +72,7 @@ function CardComponent(props) {
         <CardMedia
           component='img'
           height='150'
-          image={img}
+          image={props.image ? props.image : img}
           alt='green iguana'
         />
         <CardContent>

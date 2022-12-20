@@ -7,7 +7,6 @@ import {
   MenuItem,
   Radio,
 } from "@mui/material";
-import "./profileEdit.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -23,7 +22,6 @@ import { UserData } from "../activitySummary/Data";
 const ProfileEdit = () => {
 
   const [inform, setInform] = useState('')
-
   const token = localStorage.getItem("token")
   const decoded = jwt_decode(token);
   const navigate = useNavigate();
@@ -38,7 +36,6 @@ const ProfileEdit = () => {
   const [quote, setQuote] = useState("");
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
-
   const [image, setImage] = useState([])
 
   const [alert, setAlert] = useState({
@@ -92,7 +89,7 @@ const ProfileEdit = () => {
   const handleChangeFile = (e) => {
     const files = e.target.files
     if (files) {
-      console.log(files)
+      // console.log(files)
       Resize.imageFileResizer(
         files[0],
         150,
@@ -110,7 +107,6 @@ const ProfileEdit = () => {
             },
           } 
           ).then (res => {
-            console.log(res.data)
             const img = res.data.secure_url
             setImage(img)
           }).catch(err=> {
@@ -150,7 +146,7 @@ const ProfileEdit = () => {
     };
     axios.put(`${process.env.REACT_APP_API}/information/edit/${decoded._id}`, profileData
     ).then((res) => {
-      console.log("this is put" + res.data);
+      // console.log(res.data)
       navigate("/dashboard")
     }).catch(err=> {
       console.log(err)
@@ -164,7 +160,6 @@ const ProfileEdit = () => {
         .then(response => {
           
           const inform = response.data[0]
-          console.log(inform)
           let dateFormat = inform.birthday.slice(0,10)
           setFname(inform.firstName)
           setLname(inform.lastName)

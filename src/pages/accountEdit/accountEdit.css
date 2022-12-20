@@ -1,23 +1,10 @@
-/* *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
-} */
-/* body{
-    background-color: aliceblue;
-    width: 100%;
-} */
 .form-account{
     width: 30%;
-    /* height: 40vh; */
     background-color: rgb(191, 231, 191);
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
     min-width: 45vh;
-    
-    
 }
 .box-info{
     margin-top: 3%;

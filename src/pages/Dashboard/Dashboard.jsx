@@ -54,7 +54,7 @@ const Dashboard = () => {
   //     });
   // };
   // console.log(cardData)
-  console.log("image" + inform.image)
+  // console.log("image" + inform.image)
   // console.log(inform)
   /////////////////////////////หรือลองไป fetch ตรง dashboard แล้ว props ต่อดี??
 

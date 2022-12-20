@@ -1,18 +1,15 @@
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import image from "../../img/Landing_Pic.svg";
-import "./leftComponent.module.css";
 import bgimg from "../../img/Dashboard_LeftNav_ProfileBG.svg";
 import BoxInLeft from "./boxInLeft";
-import { useState } from "react";
 
 let { AgeFromDateString } = require("age-calculator");
 
 function LeftComponent(props) {
-  // รับ props มาจาก dashboard
 
+  // change birthday to age
   let age = new AgeFromDateString(props.birthday).age;
-  // console.log("value from ageFromString", age);
 
   const myStyle = {
     backgroundImage: `url(${bgimg})`,
@@ -26,11 +23,7 @@ function LeftComponent(props) {
     return (Math.round(num * 100) / 100).toFixed(2);
   }
 
-  //set background color based on BMI range
-  // const [color, setColor] = useState("bg-slate-100/80");
-
-
-  /// BMR calculation function ===== BASED ON SEX!!
+  /// BMR calculation function, based on gender
   function maleBMR(weight, height, age) {
     const num = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -53,21 +46,6 @@ function LeftComponent(props) {
   const bmr = calculateBMR(props.gender, props.weight, props.height, age);
   const bmi = calculateBMI(props.weight, props.height);
 
-  // function BMIColor (bmi) {
-  //   if (bmi < 18.5) {
-  //     setColor("bg-cyan-400");
-  //   } else if (bmi >= 18.5 && bmi <=24.9) {
-  //     setColor("bg-lime-500")
-  //   } else if (bmi > 24.9 && bmi <=29.9) {
-  //     setColor("bg-yellow-400")
-  //   } else if (bmi > 29.9 && bmi <=34.9) {
-  //     setColor("bg-orange-400")
-  //   } else {
-  //     setColor("bg-red-500")
-  //   }
-  // }
-  // BMIColor();
-
   return (
     <div className='flex justify-start'>
       <Container
@@ -76,13 +54,13 @@ function LeftComponent(props) {
       >
         {/* profile image */}
         <img
-          src={props.image}
+          src={props.image ? props.image : image}
           alt='avatar'
           width='100'
           className='border-white bg-white border-2 rounded-full h-32 w-32 flex items-center justify-center'
         />
         <Typography className='m-2 p-2 text-white font-bold'>
-          {props.firstname} {props.lastname}{" "}
+          {props.firstname ? props.firstname : "name"} {props.lastname ? props.lastname : "lastname"}{" "}
         </Typography>
         <Typography className='m-2 text-sm text-white'>
           PERSONAL INFORMATION
@@ -91,13 +69,13 @@ function LeftComponent(props) {
         {/*Box component in file boxInLeft*/}
         <Box className='flex p-0 m-2 w-64 bg-slate-100/80 border-white border-2 rounded-md items-center justify-center'>
           {/* Height box */}
-          <BoxInLeft text={"Height"} number={props.height} />
+          <BoxInLeft text={"Height"} number={props.height ? props.height : 0} />
 
           {/* Weight box */}
-          <BoxInLeft text={"Weight"} number={props.weight} />
+          <BoxInLeft text={"Weight"} number={props.weight ? props.weight : 0} />
 
           {/* Age box */}
-          <BoxInLeft text={"Age"} number={age} />
+          <BoxInLeft text={"Age"} number={age ? props.age : 0} />
         </Box>
 
         {/*Another 2 component boxes */}
@@ -108,14 +86,14 @@ function LeftComponent(props) {
               <Box className='m-2'>BMI</Box>
             </Box>
           {/* </div> */}
-          <Box className='m-2'>{bmi} kg/m&#178;</Box>
+          <Box className='m-2'>{bmi ? bmi : 0} kg/m&#178;</Box>
         </Box>
 
         <Box className='flex p-0 m-2 w-64 bg-slate-100/80 border-white border-2 rounded-md items-center justify-center'>
           <Box className='m-2 bg-white rounded-md'>
             <Box className='m-2'>BMR</Box>
           </Box>
-          <Box className='m-2'>{bmr} calories/day</Box>
+          <Box className='m-2'>{bmr ? bmr : 0} calories/day</Box>
         </Box>
       </Container>
     </div>

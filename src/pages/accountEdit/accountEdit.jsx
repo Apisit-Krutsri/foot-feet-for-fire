@@ -21,7 +21,7 @@ const AccountEdit = () => {
     axios
       .get(`${process.env.REACT_APP_API}/edit/${decoded._id}`)
       .then((response) => {
-        console.log(response.data[0]);
+        // console.log(response.data[0]);
         const userData = response.data[0];
         setEmail(userData.email);
       });

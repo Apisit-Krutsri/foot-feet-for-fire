@@ -16,14 +16,8 @@ const RightComponent = (props) => {
             Calendar 💌
           </Typography>
           <StaticDatePicker
-            displayStaticWrapperAs='desktop'
+            displayStaticWrapperAs= 'desktop'
             className='border-1 rounded-xl mt-2'
-            // openTo='day'
-            // value={day}
-            // onChange={(newValue) => {
-            //   setDay(newValue);
-            // }}
-            // renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
         <Box className='flex flex-col content-center'>

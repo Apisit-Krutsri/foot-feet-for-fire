@@ -7,15 +7,13 @@ import {
   MenuItem,
   Radio,
 } from "@mui/material";
-import "./profileEdit.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
 import axios from "axios";
 import CreateAlert from "../activityCreate/CreateAlert";
 import { v4 as uuidv4 } from "uuid";
-
-import { useJwt } from "react-jwt";
+import Resize from "react-image-file-resizer";
 import jwt_decode from "jwt-decode";
 
 const ProfileEdit = () => {
@@ -34,6 +32,7 @@ const ProfileEdit = () => {
   const [quote, setQuote] = useState("");
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
+  const [image, setImage] = useState([])
 
   const [alert, setAlert] = useState({
     show: false,
@@ -82,6 +81,39 @@ const ProfileEdit = () => {
     setGoal(e.target.value);
   };
 
+  // post image
+  const handleChangeFile = (e) => {
+    const files = e.target.files
+    if (files) {
+      // console.log(files)
+      Resize.imageFileResizer(
+        files[0],
+        150,
+        150,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          axios.post(`${process.env.REACT_APP_API}/images`,{
+            image: uri
+          },
+          {
+            headers: {
+              authtoken: token
+            },
+          } 
+          ).then (res => {
+            const img = res.data.secure_url
+            setImage(img)
+          }).catch(err=> {
+            console.log(err)
+          })
+        },
+        "base64"
+      )
+    }
+  }
+
   // when click "submit", the the data will be saved
   const saveProfile = (event) => {
     event.preventDefault();
@@ -106,10 +138,10 @@ const ProfileEdit = () => {
       goal: goal,
       selectGoal: selectGoal,
       number: num,
+      image: image,
       creator: decoded._id,
     };
-    console.log(profileData);
-
+    //save profile data to mongoDB
     axios.post(`${process.env.REACT_APP_API}/profile`, profileData
     ).then((res) => {
       console.log(res.data);
@@ -124,7 +156,7 @@ const ProfileEdit = () => {
       <div className='w-1/2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
         <Typography
           variant='h4'
-          className='text-green-600 text-3xl text-center font-semibold '
+          className='text-green-600 text-3xl text-center font-semibold'
         >
           Create Profile
         </Typography>
@@ -132,11 +164,13 @@ const ProfileEdit = () => {
         {/*Choose Image*/}
         <div className='flex justify-center my-5'>
           <input
+            onChange={handleChangeFile}
             className='mx-3 p-1 rounded-md block'
             type='file'
-            name='myImage'
+            name='file'
             accept='image/x-png,image/gif,image/jpeg'
           ></input>
+          <img src={image}></img>
         </div>
 
         {/*First Name*/}
@@ -388,12 +422,12 @@ const ProfileEdit = () => {
             submit
             </button>
 
-            {/* <button
+            <button
               className='w-60 mt-3 shadow bg-red-600 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded '
               type='button'
             >
-              <Link to='/dashboard'>Cancel</Link>
-            </button> */}
+              <Link to='/dashboard'>I ALREADY HAVE PROFILE</Link>
+            </button>
           </div>
         </Box>
       </div>

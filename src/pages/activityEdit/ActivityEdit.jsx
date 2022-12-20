@@ -8,7 +8,6 @@ import {
   Button,
   Box,
 } from "@mui/material";
-import "../activityCreate/create.css";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import CreateAlert from "../activityCreate/CreateAlert";

@@ -15,6 +15,7 @@ const CardList = (props) => {
             sport={data.sport}
             firstTime={data.firstTime}
             toTime={data.toTime}
+            image={data.image}
             description={data.description}
           />
         ))}
