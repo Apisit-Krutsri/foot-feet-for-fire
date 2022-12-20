@@ -23,6 +23,7 @@ const AllCard = () => {
     }
   };
 
+  // const [data, setData] = useState('')
   useEffect(() => {
     axios
       .get(
@@ -40,7 +41,6 @@ const AllCard = () => {
           };
           cards.push(card);
         }
-
         setLoad(false);
         setDataCard(cards);
       })
@@ -48,6 +48,7 @@ const AllCard = () => {
         console.log(error);
       });
   }, []);
+
 
   if (load) {
     return (

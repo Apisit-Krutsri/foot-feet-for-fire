@@ -58,20 +58,13 @@ function CardComponent(props) {
           }).catch(err=>console.log(err))      
   }
 
-  // var timediff = require('timediff');
-  // const duration = timediff(new Date("2022-12-19" + " 16:31:00"), new Date("2022-12-19" + " 14:34:00"), 'Hm');
-  // const duration = timediff(new Date(`${props.date} ${props.firstTime}`), new Date(`${props.date} ${props.toTime}`), 'Hm');
-  // const duration = timediff(new Date(props.firstTime *1), new Date(props.toTime *1), 'Hm');
-  // const date = new Date(`${props.date}, ${props.firstTime}`)
-  // console.log(`this is date: ${date}`)
-  // console.log(typeof date)
+  let timediff = require('timediff');
+  let timeEnd = props.toTime
+  let timeStart = props.firstTime
+  let duration = timediff(new Date(props.date +" "+ timeStart), new Date(props.date +" "+ timeEnd), 'Hm');
 
-
-  // console.log(duration)
-  // console.log(props.date)
-  // console.log(props.firstTime)
-
-  // console.log(props.toTime.getTime() - props.firstTime.getTime() )
+  // console.log(duration.hours)
+  // console.log(duration.minutes)
 
   return (
     <Card sx={{ maxWidth: 200 }} className="rounded-md m-2">
@@ -88,7 +81,7 @@ function CardComponent(props) {
           </Typography>
           <Typography variant='body2' color='text.secondary' className="font-bold text-lime-900"> {props.title}</Typography>
           <Typography variant='body2' color='text.secondary'>Date:{props.date}</Typography>
-          <Typography variant='body2' color='text.secondary'>Duration: {props.firstTime} min</Typography>
+          <Typography variant='body2' color='text.secondary'>Duration: {duration.hours} hr, {duration.minutes} min</Typography>
           <Typography variant='body2' color='text.secondary'>Activity: {props.sport}</Typography>
           <Typography variant='body2' color='text.secondary'>Description: {props.description}</Typography>
         </CardContent>

@@ -19,6 +19,9 @@ function App() {
     <>
         <Routes>
         {!user && <Route path='/dashboard' element={<Landing />} />}
+        {!user && <Route path='/profile' element={<Landing />} />}
+        {!user && <Route path='/profileEdit' element={<Landing />} />}
+        {!user && <Route path='/account' element={<Landing />} />}
           <Route path='/' element={<Landing />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />

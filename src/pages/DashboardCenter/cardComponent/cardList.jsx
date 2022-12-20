@@ -4,7 +4,8 @@ import CardComponent from "./cardComponent";
 const CardList = (props) => {
   return (
     <div>
-      <ul className='grid grid-cols-5'>
+      {/* <ul className='grid grid-cols-5'> */}
+      <ul className='flex flex-wrap justify-center'>
         {props.cardActivity.map((data) => (
           <CardComponent
             key={data.id}

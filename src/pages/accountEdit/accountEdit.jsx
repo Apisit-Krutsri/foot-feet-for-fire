@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
+import NavBar from "../../G-components/navBar";
 
 const AccountEdit = () => {
   const [email, setEmail] = useState("");
@@ -74,6 +75,7 @@ const AccountEdit = () => {
 
   return (
     <div>
+    <NavBar />
       <div className='form-account rounded-lg'>
         <form className='shadow-xl p-5 rounded-md '>
           <h1 className='block text-3xl font-medium text-black-700 text-center'>

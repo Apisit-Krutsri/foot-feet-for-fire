@@ -4,6 +4,7 @@ import image from "../../img/Landing_Pic.svg";
 import "./leftComponent.module.css";
 import bgimg from "../../img/Dashboard_LeftNav_ProfileBG.svg";
 import BoxInLeft from "./boxInLeft";
+import { useState } from "react";
 
 let { AgeFromDateString } = require("age-calculator");
 
@@ -25,6 +26,10 @@ function LeftComponent(props) {
     return (Math.round(num * 100) / 100).toFixed(2);
   }
 
+  //set background color based on BMI range
+  // const [color, setColor] = useState("bg-slate-100/80");
+
+
   /// BMR calculation function ===== BASED ON SEX!!
   function maleBMR(weight, height, age) {
     const num = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
@@ -44,10 +49,24 @@ function LeftComponent(props) {
     }
   }
 
-  //////////////////////////////////////////////// MAKE DATA //////////////////////////////
-  // const bmr = calculateBMR("female", 44, 158, 26);
+  // use information from the user
   const bmr = calculateBMR(props.gender, props.weight, props.height, age);
   const bmi = calculateBMI(props.weight, props.height);
+
+  // function BMIColor (bmi) {
+  //   if (bmi < 18.5) {
+  //     setColor("bg-cyan-400");
+  //   } else if (bmi >= 18.5 && bmi <=24.9) {
+  //     setColor("bg-lime-500")
+  //   } else if (bmi > 24.9 && bmi <=29.9) {
+  //     setColor("bg-yellow-400")
+  //   } else if (bmi > 29.9 && bmi <=34.9) {
+  //     setColor("bg-orange-400")
+  //   } else {
+  //     setColor("bg-red-500")
+  //   }
+  // }
+  // BMIColor();
 
   return (
     <div className='flex justify-start'>
@@ -82,10 +101,13 @@ function LeftComponent(props) {
         </Box>
 
         {/*Another 2 component boxes */}
+
         <Box className='flex p-0 m-2 w-64 bg-slate-100/80 border-white border-2 rounded-md items-center justify-center'>
-          <Box className='m-2 bg-white rounded-md'>
-            <Box className='m-2'>BMI</Box>
-          </Box>
+          {/* <div className=""> */}
+            <Box className='m-2 bg-white rounded-md'>
+              <Box className='m-2'>BMI</Box>
+            </Box>
+          {/* </div> */}
           <Box className='m-2'>{bmi} kg/m&#178;</Box>
         </Box>
 

@@ -126,7 +126,7 @@ const ProfileEdit = () => {
           variant='h4'
           className='text-green-600 text-3xl text-center font-semibold '
         >
-          Edit Profile
+          Create Profile
         </Typography>
 
         {/*Choose Image*/}

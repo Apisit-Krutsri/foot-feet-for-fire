@@ -14,7 +14,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import axios from "axios";
 import CreateAlert from "../activityCreate/CreateAlert";
 import { v4 as uuidv4 } from "uuid";
-
+import NavBar from "../../G-components/navBar";
 import { useJwt } from "react-jwt";
 import jwt_decode from "jwt-decode";
 
@@ -139,8 +139,9 @@ const ProfileEdit = () => {
     }, []);
 
   return (
-    <div className='mt-2'>
-      <div className='w-1/2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
+    <div>
+    <NavBar />
+      <div className='w-1/2 mt-2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
         <Typography
           variant='h4'
           className='text-green-600 text-3xl text-center font-semibold '
@@ -291,7 +292,7 @@ const ProfileEdit = () => {
               className='bg-slate-50'
               id='outlined-required'
               size='small'
-              rows={4}
+              rows={2}
               multiline
               fullWidth
               value={quote}
