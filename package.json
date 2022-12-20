@@ -24,6 +24,7 @@
     "react-avatar-edit": "^1.2.0",
     "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
+    "react-image-file-resizer": "^0.4.8",
     "react-jwt": "^1.1.7",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",

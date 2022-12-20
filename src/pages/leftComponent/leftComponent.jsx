@@ -76,7 +76,7 @@ function LeftComponent(props) {
       >
         {/* profile image */}
         <img
-          src={image}
+          src={props.image}
           alt='avatar'
           width='100'
           className='border-white bg-white border-2 rounded-full h-32 w-32 flex items-center justify-center'

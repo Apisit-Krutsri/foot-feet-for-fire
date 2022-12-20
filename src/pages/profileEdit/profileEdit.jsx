@@ -15,8 +15,10 @@ import axios from "axios";
 import CreateAlert from "../activityCreate/CreateAlert";
 import { v4 as uuidv4 } from "uuid";
 import NavBar from "../../G-components/navBar";
-import { useJwt } from "react-jwt";
+// import { useJwt } from "react-jwt";
 import jwt_decode from "jwt-decode";
+import Resize from "react-image-file-resizer";
+import { UserData } from "../activitySummary/Data";
 
 const ProfileEdit = () => {
 
@@ -36,6 +38,8 @@ const ProfileEdit = () => {
   const [quote, setQuote] = useState("");
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
+
+  const [image, setImage] = useState([])
 
   const [alert, setAlert] = useState({
     show: false,
@@ -84,6 +88,40 @@ const ProfileEdit = () => {
     setGoal(e.target.value);
   };
 
+ // post image
+  const handleChangeFile = (e) => {
+    const files = e.target.files
+    if (files) {
+      console.log(files)
+      Resize.imageFileResizer(
+        files[0],
+        150,
+        150,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          axios.post(`${process.env.REACT_APP_API}/images`,{
+            image: uri
+          },
+          {
+            headers: {
+              authtoken: token
+            },
+          } 
+          ).then (res => {
+            console.log(res.data)
+            const img = res.data.secure_url
+            setImage(img)
+          }).catch(err=> {
+            console.log(err)
+          })
+        },
+        "base64"
+      )
+    }
+  }
+
   // when click "submit", the the data will be updated
   const saveProfile = (event) => {
     event.preventDefault();
@@ -107,23 +145,26 @@ const ProfileEdit = () => {
       goal: goal,
       selectGoal: selectGoal,
       number: num,
+      image: image,
       creator: decoded._id,
     };
-    axios.put(`${process.env.REACT_APP_API}/information/${decoded._id}`, profileData
+    axios.put(`${process.env.REACT_APP_API}/information/edit/${decoded._id}`, profileData
     ).then((res) => {
-      console.log(res.data);
+      console.log("this is put" + res.data);
       navigate("/dashboard")
     }).catch(err=> {
       console.log(err)
     });
-    console.log(profileData);
+    // console.log(profileData);
   }};
 
+  // get ข้อมูลมาใส่ใน edit profile form
     useEffect(() => {
       axios.get(`${process.env.REACT_APP_API}/information/${decoded._id}`)
         .then(response => {
-          console.log(response.data[0])
+          
           const inform = response.data[0]
+          console.log(inform)
           let dateFormat = inform.birthday.slice(0,10)
           setFname(inform.firstName)
           setLname(inform.lastName)
@@ -135,6 +176,7 @@ const ProfileEdit = () => {
           setSelectGoal(inform.selectGoal)
           setGoal(inform.goal)
           setNum(inform.number)
+          setImage(inform.image)
         });
     }, []);
 
@@ -152,11 +194,13 @@ const ProfileEdit = () => {
         {/*Choose Image*/}
         <div className='flex justify-center my-5'>
           <input
+            onChange={handleChangeFile}
             className='mx-3 p-1 rounded-md block'
             type='file'
-            name='myImage'
+            name='file'
             accept='image/x-png,image/gif,image/jpeg'
           ></input>
+          <img src={image}></img>
         </div>
 
         {/*First Name*/}

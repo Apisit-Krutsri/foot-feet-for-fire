@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function NavBar() {
+function NavBar(props) {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -30,6 +30,8 @@ function NavBar() {
     await window.location.reload();
     await navigate("/");
   }
+
+
 
   return (
     <AppBar position='static' className='h-14 mb-1 bg-slate-50 shadow-md'>
@@ -106,7 +108,7 @@ function NavBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                <Avatar alt='Remy Sharp' src={props.image} />
               </IconButton>
             </Tooltip>
             <Menu

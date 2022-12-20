@@ -54,7 +54,8 @@ const Dashboard = () => {
   //     });
   // };
   // console.log(cardData)
-
+  console.log("image" + inform.image)
+  // console.log(inform)
   /////////////////////////////หรือลองไป fetch ตรง dashboard แล้ว props ต่อดี??
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <NavBar />
+      <NavBar image={inform.image} />
       <div className='flex justify-between'>
         <LeftComponent
           weight={inform.weight}
@@ -73,6 +74,7 @@ const Dashboard = () => {
           firstname={inform.firstName}
           lastname={inform.lastName}
           birthday={inform.birthday}
+          image={inform.image}
         />
         <div>
           <ActivitySummary bmi={bmi}  />
