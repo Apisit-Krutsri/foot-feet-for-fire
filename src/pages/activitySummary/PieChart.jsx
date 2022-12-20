@@ -11,7 +11,7 @@ const PieChart = ({ chartData }) => {
           legend: { position: "right" },
           subtitle: {
             display: true,
-            text: "จำนวนในการออกกำลังกายแต่ละประเภท",
+            // text: "Your Activities",
           },
         },
       }}
