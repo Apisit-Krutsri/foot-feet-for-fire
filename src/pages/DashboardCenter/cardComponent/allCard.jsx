@@ -63,7 +63,7 @@ const AllCard = () => {
       <Container className='p-0 grid justify-center items-center'>
         <Button
           onClick={handleOpen}
-          className='px-40 bg-green-400'
+          className='px-40 font-bold bg-gradient-to-r from-black via-zinc-700 to-orange-900 ...'
           variant='contained'
         >
           POST

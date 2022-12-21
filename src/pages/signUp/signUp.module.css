@@ -1,3 +1,9 @@
+.signup {
+    background-image: url("../../img/bglogin-1.jpg");
+    background-size: 1920px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
 
 .container {
     min-width: 450px;

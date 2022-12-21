@@ -14,10 +14,11 @@ import axios from "axios";
 import CreateAlert from "../activityCreate/CreateAlert";
 import { v4 as uuidv4 } from "uuid";
 import NavBar from "../../G-components/navBar";
-// import { useJwt } from "react-jwt";
 import jwt_decode from "jwt-decode";
 import Resize from "react-image-file-resizer";
 import { UserData } from "../activitySummary/Data";
+import styles from './profile.module.css'
+import { style } from "@mui/system";
 
 const ProfileEdit = () => {
 
@@ -176,9 +177,11 @@ const ProfileEdit = () => {
     }, []);
 
   return (
+    
     <div>
     <NavBar />
-      <div className='w-1/2 mt-2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
+    <div className={styles.profile}>
+      <div className='mt-2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
         <Typography
           variant='h4'
           className='text-green-600 text-3xl text-center font-semibold '
@@ -199,7 +202,7 @@ const ProfileEdit = () => {
         </div>
 
         {/*First Name*/}
-        <Box className='flex flex-wrap mt-2  justify-around mx-5'>
+        <Box className='flex flex-wrap mt-2 mx-2 justify-around mx-5'>
           <div className='mt-2 '>
             <label
               htmlFor='first_name'
@@ -211,7 +214,6 @@ const ProfileEdit = () => {
               id='outlined-required'
               size='small'
               className='w-80 bg-slate-50'
-              // defaultValue={inform.firstName}
               value={fname}
               onChange={inputFname}
             />
@@ -227,7 +229,6 @@ const ProfileEdit = () => {
             </label>
             <TextField
               value={lname}
-              // defaultValue={inform.lastName}
               className='w-80 bg-slate-50'
               id='outlined-required'
               size='small'
@@ -237,7 +238,7 @@ const ProfileEdit = () => {
         </Box>
 
         {/*Weight*/}
-        <Box className='flex flex-wrap mt-2 justify-around  mx-5'>
+        <Box className='flex flex-wrap mt-2 justify-around mx-5'>
           <div className='mt-2 '>
             <label
               htmlFor='weight-kg'
@@ -248,7 +249,7 @@ const ProfileEdit = () => {
             <TextField
               id='outlined-required'
               size='small'
-              className='w-80 bg-slate-50'
+              className='w-80 bg-slate-50 mx-2'
               type='number'
               value={weight}
               onChange={inputWeight}
@@ -288,7 +289,7 @@ const ProfileEdit = () => {
               size='small'
               value={gender}
               onChange={inputGender}
-              className='w-80 bg-slate-50'
+              className='w-80 bg-slate-50 mx-2'
             >
               <MenuItem value={"male"}>Male </MenuItem>
               <MenuItem value={"female"}>Female</MenuItem>
@@ -447,7 +448,6 @@ const ProfileEdit = () => {
               onClick={saveProfile}
             >
             submit
-              {/* <Link to='/dashboard'>Submit</Link> */}
             </button>
 
             <button
@@ -459,6 +459,7 @@ const ProfileEdit = () => {
           </div>
         </Box>
       </div>
+    </div>
     </div>
   );
 };

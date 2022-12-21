@@ -76,6 +76,7 @@ const AccountEdit = () => {
   return (
     <div>
     <NavBar />
+    <div className="account">
       <div className='form-account rounded-lg'>
         <form className='shadow-xl p-5 rounded-md '>
           <h1 className='block text-3xl font-medium text-black-700 text-center'>
@@ -158,6 +159,7 @@ const AccountEdit = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

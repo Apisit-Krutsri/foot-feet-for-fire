@@ -130,7 +130,7 @@ function ActivityCreate() {
   return (
     <div>
       <div>
-        <Box className='flex flex-col w-96 m-2 bg-lime-200 rounded-3xl'>
+        <Box className='flex flex-col w-96 m-2 rounded-lg bg-gradient-to-r from-lime-300 to-lime-100 ...'>
           <Typography className='text-center p-5 font-bold text-xl'>
             Create Activity
           </Typography>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Pie} from "react-chartjs-2"
-import {Chart as ChartJS} from 'chart.js/auto'
+import {Chart as ChartJS} from 'chart.js/auto' //ใช้สำหรับ chart
+import { padding } from '@mui/system';
 
 const PieChart = ({ chartData }) => {
   return (
@@ -8,13 +9,19 @@ const PieChart = ({ chartData }) => {
       data={chartData}
       options={{
         plugins: {
-          legend: { position: "right" },
+          legend: { position: "right",
+          labels: {
+                    font: { size: 16 //font of the sport types
+          },
           subtitle: {
             display: true,
+            fontSize: 50,
             // text: "Your Activities",
           },
         },
-      }}
+          },
+        },
+        }}
     />
   );
 };

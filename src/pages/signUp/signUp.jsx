@@ -15,10 +15,6 @@ function SignUp() {
   const [errorConfirm, setErrorConfirm] = useState("");
   const [errorColor, setErrorColor] = useState(false);
 
-  // const [emailValid, setEmailValid] = useState(true);
-  // const [passwordValid, setPasswordValid] = useState(true);
-  // const [confirmValid, setConfirmValid] = useState(true);
-
   const navigate = useNavigate();
 
 // validate signup form
@@ -85,7 +81,8 @@ function SignUp() {
   //////////////////////////// JSX-section ///////////////////////////////////
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-slate-100'>
+    <div className={style.signup}>
+    <div className='flex items-center justify-center min-h-screen'>
       <Box className={style.container}>
         <Typography
           className='text-lime-500 text-center font-semibold 2xl:text-left pb-5'
@@ -143,14 +140,11 @@ function SignUp() {
             type='submit'
             variant='contained'
             color='success'
-            // onClick={validateForm}
             sx={{ mt: 20 }}
             onClick={handleSubmit}
-            // disabled = {disable}
           >
             {" "}
             Sign Up
-            {/* <Link to='/edit'>Sign Up</Link> */}
           </Button>
           <div className='flex justify-center'>
             <div className='text-sm'>Already have an account ?</div>
@@ -160,6 +154,7 @@ function SignUp() {
           </div>
         </Box>
       </Box>
+    </div>
     </div>
   );
 }

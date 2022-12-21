@@ -31,6 +31,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/account' element={<AccountEdit />} />
           <Route path='/card/:uuid' element={<ActivityEdit />} />
+          <Route path='/landing' element={<Landing />} />
         </Routes>
     </>
   );

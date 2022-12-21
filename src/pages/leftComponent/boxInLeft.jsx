@@ -4,7 +4,7 @@ import {Box} from '@mui/material'
 const BoxInLeft = (props) => {
   return (
     <Box className='m-2'>
-      <Box>{props.text}</Box>
+      <Box className="font-bold">{props.text}</Box>
       <Box>{props.number}</Box>
     </Box>
   );

@@ -14,11 +14,16 @@ import CreateAlert from "../activityCreate/CreateAlert";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Resize from "react-image-file-resizer";
+import jwt_decode from "jwt-decode";
 
 //   import Swal from "sweetalert2";
 // import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 
 function ActivityEdit(props) {
+
+  const token = localStorage.getItem("token")
+  // const decoded = jwt_decode(token);
 
   const navigate = useNavigate();
   /*set states*/
@@ -28,6 +33,7 @@ function ActivityEdit(props) {
   const [toTime, setToTime] = useState("");
   const [sport, setSport] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState([])
   const [list, setList] = useState([]); //list = array contains object(s) of information
   const [alert, setAlert] = useState({
     show: false,
@@ -50,6 +56,7 @@ function ActivityEdit(props) {
       setFirstTime(cardData.firstTime);
       setToTime(cardData.toTime);
       setSport(cardData.sport);
+      setImage(cardData.image);
     });
   }, [uuid]);
 
@@ -72,6 +79,7 @@ function ActivityEdit(props) {
         toTime: toTime,
         sport: sport,
         description: description,
+        image: image,
       };
       // console.log("API URL", process.env.REACT_APP_API)
       axios
@@ -91,6 +99,7 @@ function ActivityEdit(props) {
       setToTime("");
       setSport("");
       setDescription("");
+      setImage("");
       setAlert({
         show: true,
         msg: "Your activity was saved",
@@ -108,13 +117,47 @@ function ActivityEdit(props) {
     setToTime("");
     setSport("");
     setDescription("");
+    setImage("");
     // setOpen('hidden')
   };
 
+  // post image
+  const handleChangeFile = (e) => {
+    const files = e.target.files
+    if (files) {
+      // console.log(files)
+      Resize.imageFileResizer(
+        files[0],
+        150,
+        150,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          axios.post(`${process.env.REACT_APP_API}/images`,{
+            image: uri
+          },
+          {
+            headers: {
+              authtoken: token
+            },
+          } 
+          ).then (res => {
+            const img = res.data.secure_url
+            setImage(img)
+          }).catch(err=> {
+            console.log(err)
+          })
+        },
+        "base64"
+      )
+    }
+  }
+
   return (
-    <div className='bg-slate-100 h-screen'>
+    <div className='h-screen bg-gradient-to-r bg-zinc-800'>
       <div className='flex content-center justify-center pt-20'>
-        <Box className='flex flex-col w-96 m-2 bg-lime-200 rounded-3xl'>
+        <Box className='flex flex-col w-96 m-2 rounded-lg bg-gradient-to-r from-lime-300 to-lime-100 ...'>
           <Typography className='text-center p-5 font-bold text-xl'>
             Edit Activity
           </Typography>
@@ -125,7 +168,9 @@ function ActivityEdit(props) {
             type='file'
             name='myImage'
             accept='image/x-png,image/gif,image/jpeg'
+            onChange={handleChangeFile}
           ></input>
+          <img src={image}></img>
 
           {/*Add Activity Name*/}
           <InputLabel className='px-3 py-1 text-sm'>Activity Name</InputLabel>

@@ -60,9 +60,9 @@ function SignIn() {
           `${process.env.REACT_APP_API}/login`,signInData
         );
         localStorage.setItem("token", res.data);
-        console.log(res.message);
-        console.log(res.data)
-        navigate("/profile");
+        if (res.data) {
+          navigate("/profile");
+        }
       } catch (error) {
         if (
           error.response &&
@@ -80,15 +80,16 @@ function SignIn() {
   //////////////////////////// JSX ///////////////////////////////////
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-slate-100'>
+    <div className={style.login}>
+    <div className='flex items-center justify-center min-h-screen'>
       <Card className={style.container}>
         <Typography
-          className='text-lime-500 text-center font-semibold 2xl:text-left pb-5'
+          className='text-orange-900 text-center font-semibold 2xl:text-left pb-5'
           variant='h5'
         >
           SIGN IN
         </Typography>
-        <hr className='border-1 border-lime-600'></hr>
+        <hr className='border-1 text-orange-900'></hr>
         <div className='grid p-5'>
           <TextField
             id='email'
@@ -123,7 +124,7 @@ function SignIn() {
           )}
 
           <Button
-            className='mt-5 mb-5 bg-lime-600'
+            className='mt-5 mb-5 bg-gradient-to-r from-black via-zinc-700 to-orange-900 ...'
             type='submit'
             variant='contained'
             onClick={handleSubmit}
@@ -131,7 +132,6 @@ function SignIn() {
             Sign In
           </Button>
 
-          <Button variant='outlined'>Forgot Password</Button>
           <div className='flex justify-center mt-2'>
             <div className='text-sm'>Not have an account ?</div>
             <button className='mx-3 text-sm text-green-800'>
@@ -140,6 +140,7 @@ function SignIn() {
           </div>
         </div>
       </Card>
+    </div>
     </div>
   );
 }

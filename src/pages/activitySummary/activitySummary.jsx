@@ -1,6 +1,3 @@
-// import BarChart from "./BarChart";
-// import { TypeData, UserData } from "./Data";
-// import LineChart from "./LineChart";
 import PieChart from "./PieChart";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
@@ -70,7 +67,7 @@ const ActivitySummary = (props) => {
         backgroundColor: [
           "salmon",
           "lavender",
-          "lightgreen",
+          "grey",
           "lightblue",
           "khaki",
         ],
@@ -80,20 +77,9 @@ const ActivitySummary = (props) => {
   };
 
   return (
-    <div style={{ width: 700 }} className='mx-auto'>
-      <Slide>
-        <div className='flex flex-col content-center justify-center bg-cover h-60 border-6 bg-green-100 border-solid border-2 border-green-200 p-5'>
-          <div className='justify-center '>
-            <BMI bmi={props.bmi} />
-          </div>
-        </div>
-        <div className='flex content-center justify-center bg-cover h-60 border-6 bg-green-100 border-solid border-2 border-green-200 p-5'>
-          <div className='justify-center  '>
-            <div className='text-center font-bold'>Your Activities</div>
-            <PieChart chartData={typeData} />
-          </div>
-        </div>
-      </Slide>
+    <div className='mx-3 rounded-md h-80 m-2 flex flex-col pt-2 items-center content-center bg-white border'>
+            <div className='text-center font-bold text-xl mt-2'>Your Activities</div>
+            <PieChart chartData={typeData}/>
     </div>
   );
 };

@@ -1,0 +1,7 @@
+.profile {
+    background-image: url("../../img/bglogin-1.jpg");
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
+import './dashboard.css'
 
 const Dashboard = () => {
   const [inform, setInform] = useState("");
@@ -66,7 +67,7 @@ const Dashboard = () => {
   return (
     <div>
       <NavBar image={inform.image} />
-      <div className='flex justify-between'>
+      <div className='dashboard flex justify-between'>
         <LeftComponent
           weight={inform.weight}
           height={inform.height}
@@ -85,6 +86,7 @@ const Dashboard = () => {
           goal={inform.goal}
           quote={inform.quote}
           selectGoal={inform.selectGoal}
+          bmi={bmi}
         />
       </div>
     </div>

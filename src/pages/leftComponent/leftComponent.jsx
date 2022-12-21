@@ -1,20 +1,23 @@
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import image from "../../img/Landing_Pic.svg";
-import bgimg from "../../img/Dashboard_LeftNav_ProfileBG.svg";
+// import bgimg from "../../img/Dashboard_LeftNav_ProfileBG.svg";
+import bgimg from "../../img/pngegg.png";
+// import bgimg from '../../img/bikewomen.png'
 import BoxInLeft from "./boxInLeft";
-
 let { AgeFromDateString } = require("age-calculator");
 
 function LeftComponent(props) {
 
   // change birthday to age
   let age = new AgeFromDateString(props.birthday).age;
+  console.log(age)
 
   const myStyle = {
     backgroundImage: `url(${bgimg})`,
-    backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    backgroundSize: 400,
+    backgroundPosition: "bottom"
   };
 
   /// BMI calculation function (weight=kg, height=cm)
@@ -47,9 +50,9 @@ function LeftComponent(props) {
   const bmi = calculateBMI(props.weight, props.height);
 
   return (
-    <div className='flex justify-start'>
+    <div className='flex justify-start bg-zinc-700'>
       <Container
-        className='bg-slate-300 flex flex-col m-0 h-auto w-72 p-10 items-center'
+        className='flex flex-col m-0 h-auto w-80 p-10 items-center'
         style={myStyle}
       >
         {/* profile image */}
@@ -59,7 +62,7 @@ function LeftComponent(props) {
           width='100'
           className='border-white bg-white border-2 rounded-full h-32 w-32 flex items-center justify-center'
         />
-        <Typography className='m-2 p-2 text-white font-bold'>
+        <Typography className='m-2 p-2 text-white font-bold text-2xl'>
           {props.firstname ? props.firstname : "name"} {props.lastname ? props.lastname : "lastname"}{" "}
         </Typography>
         <Typography className='m-2 text-sm text-white'>
@@ -75,23 +78,20 @@ function LeftComponent(props) {
           <BoxInLeft text={"Weight"} number={props.weight ? props.weight : 0} />
 
           {/* Age box */}
-          <BoxInLeft text={"Age"} number={age ? props.age : 0} />
+          <BoxInLeft text={"Age"} number={age ? age : 0} />
         </Box>
 
         {/*Another 2 component boxes */}
-
-        <Box className='flex p-0 m-2 w-64 bg-slate-100/80 border-white border-2 rounded-md items-center justify-center'>
-          {/* <div className=""> */}
+        <Box className='flex p-0 m-2 w-64 pl-5 bg-slate-100/80 border-white border-2 rounded-md items-center'>
             <Box className='m-2 bg-white rounded-md'>
-              <Box className='m-2'>BMI</Box>
+              <Box className='m-2 font-bold'>BMI</Box>
             </Box>
-          {/* </div> */}
           <Box className='m-2'>{bmi ? bmi : 0} kg/m&#178;</Box>
         </Box>
 
-        <Box className='flex p-0 m-2 w-64 bg-slate-100/80 border-white border-2 rounded-md items-center justify-center'>
+        <Box className='flex p-0 m-2 w-64 pl-5 bg-slate-100/80 border-white border-2 rounded-md items-center'>
           <Box className='m-2 bg-white rounded-md'>
-            <Box className='m-2'>BMR</Box>
+            <Box className='m-2 font-bold'>BMR</Box>
           </Box>
           <Box className='m-2'>{bmr ? bmr : 0} calories/day</Box>
         </Box>
