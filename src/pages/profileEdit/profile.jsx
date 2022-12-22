@@ -35,8 +35,7 @@ const ProfileEdit = () => {
   const [quote, setQuote] = useState("");
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
-  const [image, setImage] = useState([])
-
+  const [image, setImage] = useState("")
   const [alert, setAlert] = useState({
     show: false,
     msg: "",
@@ -118,41 +117,85 @@ const ProfileEdit = () => {
   }
 
   // when click "submit", the the data will be saved
-  const saveProfile = (event) => {
-    event.preventDefault();
-    if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num)) {
-      console.log("no nameeeee");
-      setAlert({
-        show: true,
-        msg: "You must complete all fields ",
-        severity: "error",
-      });
-    }else {
+  // const saveProfile = (event) => {
+  //   event.preventDefault();
+  //   if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num)) {
+  //     console.log("profile information not ok");
+  //     setAlert({
+  //       show: true,
+  //       msg: "You must complete all fields",
+  //       severity: "error",
+  //     });
+  //   } else {
+  //   const profileData = {
+  //     uuidprofile: uuidv4(),
+  //     firstName: fname, 
+  //     lastName: lname,
+  //     weight: weight,
+  //     height: height,
+  //     gender: gender,
+  //     birthday: birth,
+  //     quote: quote,
+  //     goal: goal,
+  //     selectGoal: selectGoal,
+  //     number: num,
+  //     image: image,
+  //     creator: decoded._id,
+  //   };
+  
+  //   //save profile data to mongoDB
+  //   axios.post(`${process.env.REACT_APP_API}/profile`, profileData
+  //   ).then((res) => {
+  //     console.log(res.data);
+  //     navigate("/dashboard");
+  //   }).catch(err=> {
+  //     console.log(err)
+  //   });
+  // }};
 
-    const profileData = {
-      uuidprofile: uuidv4(),
-      firstName: fname, 
-      lastName: lname,
-      weight: weight,
-      height: height,
-      gender: gender,
-      birthday: birth,
-      quote: quote,
-      goal: goal,
-      selectGoal: selectGoal,
-      number: num,
-      image: image,
-      creator: decoded._id,
-    };
-    //save profile data to mongoDB
-    axios.post(`${process.env.REACT_APP_API}/profile`, profileData
-    ).then((res) => {
-      console.log(res.data);
-      navigate("/dashboard");
-    }).catch(err=> {
-      console.log(err)
-    });
-  }};
+  const saveProfile = async (event) => {
+    try {
+      event.preventDefault();
+      if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num && image)) {
+        console.log("no nameeeee");
+        setAlert({
+          show: true,
+          msg: "You must complete all fields ",
+          severity: "error",
+        });
+      } else {
+        const profileData = {
+          uuidprofile: uuidv4(),
+          firstName: fname, 
+          lastName: lname,
+          weight: weight,
+          height: height,
+          gender: gender,
+          birthday: birth,
+          quote: quote,
+          goal: goal,
+          selectGoal: selectGoal,
+          number: num,
+          image: image,
+          creator: decoded._id,
+        };
+  
+        //save profile data to mongoDB
+        const res = await axios.post(`${process.env.REACT_APP_API}/profile`, profileData);
+        console.log(res.data);
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
+  const handleLogout = async () => {
+    await localStorage.removeItem("token");
+    await window.location.reload();
+    await navigate("/");
+  }
 
   return (
     <div className={styles.profile}>
@@ -428,9 +471,9 @@ const ProfileEdit = () => {
 
             <button
               className='w-60 mt-3 shadow bg-red-600 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded '
-              type='button'
+              type='button' onClick={handleLogout}
             >
-              <Link to='/dashboard'>I ALREADY HAVE PROFILE</Link>
+              cancel
             </button>
           </div>
         </Box>

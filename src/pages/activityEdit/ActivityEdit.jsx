@@ -33,7 +33,7 @@ function ActivityEdit(props) {
   const [toTime, setToTime] = useState("");
   const [sport, setSport] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState([])
+  const [image, setImage] = useState("")
   const [list, setList] = useState([]); //list = array contains object(s) of information
   const [alert, setAlert] = useState({
     show: false,

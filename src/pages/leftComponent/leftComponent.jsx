@@ -11,7 +11,7 @@ function LeftComponent(props) {
 
   // change birthday to age
   let age = new AgeFromDateString(props.birthday).age;
-  console.log(age)
+  // console.log(age)
 
   const myStyle = {
     backgroundImage: `url(${bgimg})`,

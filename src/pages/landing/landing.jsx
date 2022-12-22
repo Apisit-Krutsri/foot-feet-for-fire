@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./landing2.module.css";
+import style from "./landing.module.css";
 import { Typography, Grid, Paper, Box } from "@mui/material";
 import imagelanding from "../../img/landing-modified_3.svg";
 import { Link } from "react-router-dom";

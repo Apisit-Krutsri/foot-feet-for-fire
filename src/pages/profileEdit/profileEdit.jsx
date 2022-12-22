@@ -38,7 +38,6 @@ const ProfileEdit = () => {
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
   const [image, setImage] = useState([])
-
   const [alert, setAlert] = useState({
     show: false,
     msg: "",
@@ -126,7 +125,7 @@ const ProfileEdit = () => {
       console.log("no nameeeee");
       setAlert({
         show: true,
-        msg: "You must complete all fields ",
+        msg: "You must complete all fields",
         severity: "error",
       });
     }else{

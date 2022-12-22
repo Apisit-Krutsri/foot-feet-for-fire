@@ -7,7 +7,7 @@ import AccountEdit from './pages/accountEdit/accountEdit';
 import React from "react";
 import ProfileEdit from "./pages/profileEdit/profileEdit";
 import Profile from "./pages/profileEdit/profile";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, BrowserRouter} from "react-router-dom";
 import ActivityEdit from "./pages/activityEdit/ActivityEdit";
 
 function App() {

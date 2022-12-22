@@ -58,7 +58,7 @@ const AccountEdit = () => {
     const formValidity = await validateForm();
     if (formValidity.passwordValid && formValidity.confirmValid) {
       try {
-        const res = await axios.put(
+        await axios.put(
           `${process.env.REACT_APP_API}/edit/${decoded._id}`,
           editData
         );

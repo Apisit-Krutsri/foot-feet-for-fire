@@ -61,7 +61,7 @@ function SignIn() {
         );
         localStorage.setItem("token", res.data);
         if (res.data) {
-          navigate("/profile");
+          navigate("/dashboard");
         }
       } catch (error) {
         if (

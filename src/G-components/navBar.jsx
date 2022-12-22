@@ -31,8 +31,6 @@ function NavBar(props) {
     await navigate("/");
   }
 
-
-
   return (
     <AppBar position='static' className='h-14 mb-1 bg-slate-50 shadow-md'>
       <Container maxWidth='xl' className=''>

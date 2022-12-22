@@ -67,7 +67,15 @@ function SignUp() {
       try {
         const res = await axios.post(`${process.env.REACT_APP_API}/user`, signUpData);
         console.log(res.message);
-        navigate("/signin");
+        // navigate("/signin");
+        const {data:response} = await axios.post(
+          `${process.env.REACT_APP_API}/login`,signUpData
+        );
+        localStorage.setItem("token", response.data);
+        if (response.data) {
+          navigate("/profile");
+        }
+        
       } catch (error) {
         if (error.response && error.response.status >= 400 && error.response.status <= 500) {
           setError(error.response.data.message);
