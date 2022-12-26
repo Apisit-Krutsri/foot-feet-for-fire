@@ -8,21 +8,19 @@ import {
   Radio,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
 import axios from "axios";
 import CreateAlert from "../activityCreate/CreateAlert";
 import { v4 as uuidv4 } from "uuid";
-import NavBar from "../../G-components/navBar";
-import jwt_decode from "jwt-decode";
 import Resize from "react-image-file-resizer";
-import { UserData } from "../activitySummary/Data";
-import styles from './profile.module.css'
+import jwt_decode from "jwt-decode";
+// import imagebg from "../../img/bglogin-1.jpg"
 import { style } from "@mui/system";
+import styles from './profile.module.css'
 
 const ProfileEdit = () => {
 
-  const [inform, setInform] = useState('')
   const token = localStorage.getItem("token")
   const decoded = jwt_decode(token);
   const navigate = useNavigate();
@@ -37,7 +35,7 @@ const ProfileEdit = () => {
   const [quote, setQuote] = useState("");
   const [goal, setGoal] = useState("");
   const [num, setNum] = useState("");
-  const [image, setImage] = useState([])
+  const [image, setImage] = useState("")
   const [alert, setAlert] = useState({
     show: false,
     msg: "",
@@ -85,7 +83,7 @@ const ProfileEdit = () => {
     setGoal(e.target.value);
   };
 
- // post image
+  // post image
   const handleChangeFile = (e) => {
     const files = e.target.files
     if (files) {
@@ -118,74 +116,96 @@ const ProfileEdit = () => {
     }
   }
 
-  // when click "submit", the the data will be updated
-  const saveProfile = (event) => {
-    event.preventDefault();
-    if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num)) {
-      console.log("no nameeeee");
-      setAlert({
-        show: true,
-        msg: "You must complete all fields",
-        severity: "error",
-      });
-    }else{
-    const profileData = {
-      uuidprofile: uuidv4(),
-      firstName: fname, 
-      lastName: lname,
-      weight: weight,
-      height: height,
-      gender: gender,
-      birthday: birth,
-      quote: quote,
-      goal: goal,
-      selectGoal: selectGoal,
-      number: num,
-      image: image,
-      creator: decoded._id,
-    };
-    axios.put(`${process.env.REACT_APP_API}/information/edit/${decoded._id}`, profileData
-    ).then((res) => {
-      // console.log(res.data)
-      navigate("/dashboard")
-    }).catch(err=> {
-      console.log(err)
-    });
-    // console.log(profileData);
-  }};
+  // when click "submit", the the data will be saved
+  // const saveProfile = (event) => {
+  //   event.preventDefault();
+  //   if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num)) {
+  //     console.log("profile information not ok");
+  //     setAlert({
+  //       show: true,
+  //       msg: "You must complete all fields",
+  //       severity: "error",
+  //     });
+  //   } else {
+  //   const profileData = {
+  //     uuidprofile: uuidv4(),
+  //     firstName: fname, 
+  //     lastName: lname,
+  //     weight: weight,
+  //     height: height,
+  //     gender: gender,
+  //     birthday: birth,
+  //     quote: quote,
+  //     goal: goal,
+  //     selectGoal: selectGoal,
+  //     number: num,
+  //     image: image,
+  //     creator: decoded._id,
+  //   };
+  
+  //   //save profile data to mongoDB
+  //   axios.post(`${process.env.REACT_APP_API}/profile`, profileData
+  //   ).then((res) => {
+  //     console.log(res.data);
+  //     navigate("/dashboard");
+  //   }).catch(err=> {
+  //     console.log(err)
+  //   });
+  // }};
 
-  // get ข้อมูลมาใส่ใน edit profile form
-    useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API}/information/${decoded._id}`)
-        .then(response => {
-          
-          const inform = response.data[0]
-          let dateFormat = inform.birthday.slice(0,10)
-          setFname(inform.firstName)
-          setLname(inform.lastName)
-          setWeight(inform.weight)
-          setHeight(inform.height)
-          setGender(inform.gender)
-          setBirth(dateFormat)
-          setQuote(inform.quote)
-          setSelectGoal(inform.selectGoal)
-          setGoal(inform.goal)
-          setNum(inform.number)
-          setImage(inform.image)
+  const saveProfile = async (event) => {
+    try {
+      event.preventDefault();
+      if (!(fname && lname && weight && height && gender && birth && quote && goal && selectGoal && num && image)) {
+        console.log("no nameeeee");
+        setAlert({
+          show: true,
+          msg: "You must complete all fields ",
+          severity: "error",
         });
-    }, []);
+      } else {
+        const profileData = {
+          uuidprofile: uuidv4(),
+          firstName: fname, 
+          lastName: lname,
+          weight: weight,
+          height: height,
+          gender: gender,
+          birthday: birth,
+          quote: quote,
+          goal: goal,
+          selectGoal: selectGoal,
+          number: num,
+          image: image,
+          creator: decoded._id,
+        };
+  
+        //save profile data to mongoDB
+        const res = await axios.post(`${process.env.REACT_APP_API}/profile`, profileData);
+        console.log(res.data);
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
+  const handleLogout = async () => {
+    await localStorage.removeItem("token");
+    await window.location.reload();
+    await navigate("/");
+  }
 
   return (
-    
-    <div>
-    <NavBar />
     <div className={styles.profile}>
-      <div className='mt-2 bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
+    <div>
+      <div className='w-full bg-green-50 drop-shadow-lg mx-auto rounded-lg p-6 min-w-min'>
         <Typography
           variant='h4'
-          className='text-green-600 text-3xl text-center font-semibold '
+          className='text-green-600 text-3xl text-center font-semibold'
         >
-          Edit Profile
+          Create Profile
         </Typography>
 
         {/*Choose Image*/}
@@ -237,7 +257,7 @@ const ProfileEdit = () => {
         </Box>
 
         {/*Weight*/}
-        <Box className='flex flex-wrap mt-2 justify-around mx-5'>
+        <Box className='flex flex-wrap mt-2 mx-2 justify-around  mx-5'>
           <div className='mt-2 '>
             <label
               htmlFor='weight-kg'
@@ -248,7 +268,7 @@ const ProfileEdit = () => {
             <TextField
               id='outlined-required'
               size='small'
-              className='w-80 bg-slate-50 mx-2'
+              className='w-80 bg-slate-50'
               type='number'
               value={weight}
               onChange={inputWeight}
@@ -331,7 +351,7 @@ const ProfileEdit = () => {
               className='bg-slate-50'
               id='outlined-required'
               size='small'
-              rows={2}
+              rows={4}
               multiline
               fullWidth
               value={quote}
@@ -442,7 +462,7 @@ const ProfileEdit = () => {
         <Box className='flex  mx-5'>
           <div className=' w-full flex flex-wrap mt-2 justify-around'>
             <button
-              className='w-60 mt-3 shadow bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded'
+              className='w-60 mt-3 shadow bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-10 rounded'
               type='button'
               onClick={saveProfile}
             >
@@ -451,9 +471,9 @@ const ProfileEdit = () => {
 
             <button
               className='w-60 mt-3 shadow bg-red-600 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded '
-              type='button'
+              type='button' onClick={handleLogout}
             >
-              <Link to='/dashboard'>Cancel</Link>
+              cancel
             </button>
           </div>
         </Box>

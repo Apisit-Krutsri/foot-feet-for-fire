@@ -1,0 +1,26 @@
+.signup {
+    background-image: url("../../img/bglogin-1.jpg");
+    background-size: 1920px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.container {
+    min-width: 450px;
+    height: auto;
+    margin: 0px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 5px #dddddd;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .container {
+        min-width: 200px;
+    }
+    #text {
+        text-align: center;
+    }
+}

@@ -8,19 +8,24 @@ import {
   Button,
   Box,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import CreateAlert from "./CreateAlert";
+import CreateAlert from "../activityCreate/CreateAlert";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Resize from "react-image-file-resizer";
 import jwt_decode from "jwt-decode";
 
-function ActivityCreate() {
+//   import Swal from "sweetalert2";
+// import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+
+function ActivityEdit(props) {
 
   const token = localStorage.getItem("token")
-  const decoded = jwt_decode(token);
+  // const decoded = jwt_decode(token);
 
+  const navigate = useNavigate();
   /*set states*/
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -36,11 +41,30 @@ function ActivityCreate() {
     severity: "",
   });
 
+  // console.log(props)
+
+  // ดึงข้อมูลบทความที่ต้องการแก้ไขมาแปะใน state ใน form ลอกมาาาาาาาาาาาาาาาาา
+  const { uuid } = useParams();
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API}/card/${uuid}`).then((response) => {
+      // console.log(response.data[0]);
+      const cardData = response.data[0];
+      setName(cardData.title);
+      setDate(cardData.date);
+      setDescription(cardData.description);
+      setFirstTime(cardData.firstTime);
+      setToTime(cardData.toTime);
+      setSport(cardData.sport);
+      setImage(cardData.image);
+    });
+  }, [uuid]);
+
   /*set conditions when click save button*/
   const submitData = (e) => {
     e.preventDefault();
     if (!(name && date && firstTime && toTime && sport && description)) {
-      console.log("no nameeeee");
+      // console.log("no nameeeee");
       setAlert({
         show: true,
         msg: "You must complete all fields ",
@@ -56,14 +80,16 @@ function ActivityCreate() {
         sport: sport,
         description: description,
         image: image,
-        creator: decoded._id,
       };
       // console.log("API URL", process.env.REACT_APP_API)
-      axios.post(`${process.env.REACT_APP_API}/create`, newItem
-        ).then((res) => {
-          console.log(res.data);
-        }).catch(err=> {
-          console.log(err)
+      axios
+        .put(`${process.env.REACT_APP_API}/card/${uuid}`, newItem)
+        .then((res) => {
+          // console.log(res.data);
+          navigate('/dashboard')
+        })
+        .catch((err) => {
+          console.log(err);
         });
 
       setList([...list, newItem]);
@@ -73,7 +99,7 @@ function ActivityCreate() {
       setToTime("");
       setSport("");
       setDescription("");
-      setImage("")
+      setImage("");
       setAlert({
         show: true,
         msg: "Your activity was saved",
@@ -91,7 +117,8 @@ function ActivityCreate() {
     setToTime("");
     setSport("");
     setDescription("");
-    setImage("")
+    setImage("");
+    // setOpen('hidden')
   };
 
   // post image
@@ -128,11 +155,11 @@ function ActivityCreate() {
   }
 
   return (
-    <div>
-      <div>
+    <div className='h-screen bg-gradient-to-r bg-zinc-800'>
+      <div className='flex content-center justify-center pt-20'>
         <Box className='flex flex-col w-96 m-2 rounded-lg bg-gradient-to-r from-lime-300 to-lime-100 ...'>
           <Typography className='text-center p-5 font-bold text-xl'>
-            Create Activity
+            Edit Activity
           </Typography>
 
           {/*Choose Image*/}
@@ -200,7 +227,6 @@ function ActivityCreate() {
             <MenuItem value={"swimming"}>Swimming</MenuItem>
             <MenuItem value={"cycling"}>Cycling</MenuItem>
             <MenuItem value={"hiking"}>Hiking</MenuItem>
-
           </Select>
 
           {/*Add Activity Description*/}
@@ -236,17 +262,17 @@ function ActivityCreate() {
               type='submit'
               onClick={cancel}
             >
-               <Link to='/dashboard'>Cancel</Link>
+              <Link to='/dashboard'>Cancel</Link>
             </Button>
           </Box>
         </Box>
       </div>
 
       {/*    <section className="list-container">
-    {list.map((data, index)=> {return <CardComponent key={index} {...data} />})}
-  </section>*/}
+      {list.map((data, index)=> {return <CardComponent key={index} {...data} />})}
+    </section>*/}
     </div>
   );
 }
 
-export default ActivityCreate;
+export default ActivityEdit;

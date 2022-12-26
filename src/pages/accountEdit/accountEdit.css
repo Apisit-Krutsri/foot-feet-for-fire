@@ -1,0 +1,29 @@
+.account {
+    background-image: url("../../img/bglogin-1.jpg");
+    background-size: 1960px;
+    height: 94vh;
+    display: flex;
+    background-repeat: no-repeat;
+    /* justify-items: center; */
+    justify-content: center;
+    align-items: center;
+}
+
+.form-account{
+    width: 30%;
+    background-color: rgb(191, 231, 191);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    min-width: 45vh;
+}
+.box-info{
+    margin-top: 3%;
+}
+.box-button{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+    width: 100%;
+    align-items: center;
+}

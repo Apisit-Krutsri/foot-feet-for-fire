@@ -1,0 +1,23 @@
+.login {
+    background-image: url("../../img/bglogin.jpg");
+    background-size: 1920px;
+    background-repeat: no-repeat;
+}
+
+.container {
+    min-width: 450px;
+    height: auto;
+    margin: 0px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        min-width: 200px;
+    }
+    .text {
+        text-align: center;
+    }
+}
